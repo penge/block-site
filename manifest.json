@@ -1,6 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Stop Social Media",
+  "description": "Chrome Extension that prevents you from opening social media.",
   "version": "2.0",
   "options_page": "options.html",
   "permissions": ["storage", "tabs"],
