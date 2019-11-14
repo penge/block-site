@@ -3,8 +3,19 @@
 <head>
 <title>Stop Social Media</title>
 <style>
-  body, textarea { font-size: 120%; }
-  button { font-size: 150%; font-weight: bold; }
+  body {
+    font-family: Calibri;
+    margin: 0 auto;
+    padding: 50px;
+  }
+  body, textarea {
+    font-size: 120%;
+  }
+  button {
+    font-size: 150%;
+    font-weight: bold;
+    margin-right: 15px;
+  }
 </style>
 </head>
 <body>
@@ -14,7 +25,9 @@
 
 <textarea id="textarea" rows="10" cols="30"></textarea>
 <br>
+
 <button id="save">Save</button>
+<strong>Enabled?</strong><input id="checkbox" type="checkbox" checked="checked">
 
 <script src="options.js"></script>
 </body>

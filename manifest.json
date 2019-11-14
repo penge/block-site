@@ -6,7 +6,7 @@
   "options_page": "options.html",
   "permissions": ["storage", "tabs"],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": true
+    "scripts": ["global.js", "background.js"],
+    "persistent": false
   }
 }
