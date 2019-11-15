@@ -3,11 +3,16 @@
 /* global chrome */
 
 var textarea = document.getElementById('textarea');
+var checkbox = document.getElementById('checkbox');
 
-chrome.storage.sync.get(['blocked'], function (result) {
+chrome.storage.sync.get(['blocked', 'enabled'], function (result) {
+  // blocked
   var blocked = result.blocked;
   var value = blocked.join('\r\n');
   textarea.value = value;
+
+  // enabled
+  checkbox.checked = result.enabled;
 });
 
 document.getElementById('save').addEventListener('click', function () {
