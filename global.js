@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-/* global chrome */
+/* global chrome, console */
 
-
+// eslint-disable-next-line no-unused-vars
 function removeTabs() {
-  chrome.storage.sync.get(['blocked', 'tabs'], function (result) {
+  chrome.storage.sync.get(["blocked", "tabs"], function (result) {
 
     // Iterate over blocked domains
     result.blocked.forEach(function (domain) {
@@ -19,10 +19,10 @@ function removeTabs() {
           chrome.tabs.remove(parsed, function () {
             if (chrome.runtime.lastError) {
               // Chill (Tab does not exist, it was closed manually before the extension was re-enabled.)
-              console.log('Tab ' + parsed + ' (' + domain + ') ' + 'does not exist!');
+              console.log("Tab " + parsed + " (" + domain + ") " + "does not exist!");
             }
             delete result.tabs[parsed];
-            chrome.storage.sync.set({ 'tabs': result.tabs });
+            chrome.storage.sync.set({ "tabs": result.tabs });
           });
         }
       });
