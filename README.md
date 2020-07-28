@@ -1,4 +1,4 @@
-# Stop Social Media
+# Block Site
 
 **Chrome Extension** that prevents you from opening:
 
