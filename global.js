@@ -4,7 +4,7 @@
 
 // eslint-disable-next-line no-unused-vars
 function removeTabs() {
-  chrome.storage.sync.get(["blocked", "tabs"], function (result) {
+  chrome.storage.local.get(["blocked", "tabs"], function (result) {
 
     // Iterate over blocked domains
     result.blocked.forEach(function (domain) {
@@ -22,7 +22,7 @@ function removeTabs() {
               console.log("Tab " + parsed + " (" + domain + ") " + "does not exist!");
             }
             delete result.tabs[parsed];
-            chrome.storage.sync.set({ "tabs": result.tabs });
+            chrome.storage.local.set({ "tabs": result.tabs });
           });
         }
       });
