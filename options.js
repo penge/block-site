@@ -1,38 +1,46 @@
-'use strict';
+"use strict";
 
-/* global chrome */
+/* global chrome, window, document */
 
-var textarea = document.getElementById('textarea');
-var checkbox = document.getElementById('checkbox');
+const textarea = document.getElementById("textarea");
+const save = document.getElementById("save");
+const checkbox = document.getElementById("checkbox");
 
-chrome.storage.sync.get(['blocked', 'enabled'], function (result) {
-  // blocked
-  var blocked = result.blocked;
-  var value = blocked.join('\r\n');
-  textarea.value = value;
+textarea.placeholder = [
+  "facebook.com",
+  "instagram.com",
+  "youtube.com",
+  "twitter.com",
+  "reddit.com"
+].join("\n");
 
-  // enabled
-  checkbox.checked = result.enabled;
+save.addEventListener("click", () => {
+  const blocked = textarea.value.split("\n").map(s => s.trim()).filter(Boolean);
+
+  chrome.storage.local.set({ blocked });
 });
 
-document.getElementById('save').addEventListener('click', function () {
-  var blocked = textarea.value.split('\n').filter(function(string) {
-    return string.length > 0;
-  });
-  chrome.storage.sync.set({ 'blocked': blocked }, function () {
-    chrome.storage.sync.get(['enabled'], function (result) {
-      if (result.enabled) {
-        chrome.extension.getBackgroundPage().removeTabs();
-      }
-    });
-  });
+checkbox.addEventListener("change", (event) => {
+  const enabled = event.target.checked;
+
+  chrome.storage.local.set({ enabled });
 });
 
-document.getElementById('checkbox').addEventListener('change', function (event) {
-  var enabled = event.target.checked;
-  chrome.storage.sync.set({ 'enabled': enabled }, function () {
-    if (enabled) {
-      chrome.extension.getBackgroundPage().removeTabs();
+window.addEventListener("DOMContentLoaded", () => {
+  chrome.storage.local.get(["blocked", "enabled"], function (local) {
+    const { blocked, enabled } = local;
+    if (!Array.isArray(blocked)) {
+      return;
     }
+
+    // blocked
+    var value = blocked.join("\r\n"); // display every blocked in new line
+    textarea.value = value;
+
+    // enabled
+    checkbox.checked = enabled;
+
+    // show controls
+    document.body.classList.add("ready");
   });
 });

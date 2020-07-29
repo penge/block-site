@@ -1,12 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Stop Social Media",
-  "description": "Chrome Extension that prevents you from opening social media.",
-  "version": "3.1",
+  "name": "Block Site",
+  "description": "Blocks access to time-consuming websites (as you specify) to improve your productivity.",
+  "version": "1.0",
+  "icons": { "128": "icon.png" },
   "options_page": "options.html",
   "permissions": ["storage", "tabs"],
   "background": {
-    "scripts": ["global.js", "background.js"],
+    "scripts": ["background.js"],
     "persistent": false
   }
 }
