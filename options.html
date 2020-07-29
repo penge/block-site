@@ -3,31 +3,76 @@
 <head>
 <title>Block Site</title>
 <style>
+  html {
+    font-size: 30px;
+  }
   body {
-    font-family: Calibri;
     margin: 0 auto;
     padding: 50px;
+    font-family: Calibri, Helvetica, Arial, sans-serif;
+    line-height: 150%;
   }
-  body, textarea {
-    font-size: 120%;
+  body:not(.ready) #textarea::placeholder,
+  body:not(.ready) #controls {
+    opacity: 0;
   }
-  button {
+  body:not(.ready) #controls {
+    visibility: hidden;
+  }
+  #textarea {
+    border: 3px solid;
+    outline: none;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  #textarea::placeholder {
+    color: silver;
+    opacity: 1;
+    transition: opacity .7s;
+  }
+  #controls {
+    transition: opacity 1s;
+  }
+  #save {
     font-size: 150%;
     font-weight: bold;
     margin-right: 15px;
+  }
+  #credits {
+    margin-top: 5em;
+  }
+  #credits a {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+  }
+  #credits a:hover {
+    border-bottom: 1px solid black;
   }
 </style>
 </head>
 <body>
 
 <h1>Block Site</h1>
-<p>Type all the pages you'd like to have been blocked in the same way you see below.</p>
+<p>
+  <strong>Block Site</strong> is a simple way to block access to time-consuming websites (like during the working hours) as you specify in the window below.<br><br>
+  Type the sites you would like to block the access to in a format like <strong>facebook.com</strong>, type them in new line each.
+  Sites will be blocked on their next attempted visit if enabled.
+</p>
 
-<textarea id="textarea" rows="10" cols="30"></textarea>
+<textarea id="textarea" rows="10" cols="30" spellcheck="false"></textarea>
 <br>
 
-<button id="save">Save</button>
-<strong>Enabled?</strong><input id="checkbox" type="checkbox" checked="checked">
+<div id="controls">
+  <button id="save">Save</button>
+  <strong>Enabled?</strong><input id="checkbox" type="checkbox" checked="checked">
+</div>
+
+<p id="credits">
+  Created by <strong>Pavel Bucka (penge)</strong>.<br>
+  Support project by giving it a star (like) at <a target="_blank" href="https://github.com/penge/block-site">https://github.com/penge/block-site</a>.
+  Let me know about your feature requests.
+</p>
 
 <script src="options.js"></script>
 </body>
