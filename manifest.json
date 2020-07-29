@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Block Site",
-  "description": "Chrome Extension that prevents you from opening social media.",
-  "version": "3.1",
+  "description": "Blocks access to time-consuming websites (as you specify) to improve your productivity.",
+  "version": "1.0",
+  "icons": { "128": "icon.png" },
   "options_page": "options.html",
   "permissions": ["storage", "tabs"],
   "background": {
