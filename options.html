@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
 </head>
 <title>Block Site</title>
 <style>
@@ -13,6 +12,7 @@
   body {
     margin: 0 auto;
     padding: 50px;
+    max-width: 35%;
     font-family: Calibri, Helvetica, Arial, sans-serif;
     line-height: 150%;
   }
@@ -43,14 +43,19 @@
     transition: opacity 1s;
   }
 
+  #notif {
+    color: rgb(24, 169, 24);
+  }
+
   #save {
-    font-size: 150%;
+    font-size: 110%;
     font-weight: bold;
     margin-right: 15px;
   }
 
   #credits {
     margin-top: 5em;
+    font-size: 16px;
   }
 
   #credits a {
@@ -66,31 +71,24 @@
 </head>
 
 <body>
-
-  <h1>Block Site</h1>
   <p>
-    <strong>Block Site</strong> is a simple way to block access to time-consuming websites (like during the working
-    hours) as you specify in the window below.<br><br>
-    Type the sites you would like to block the access to in a format like <strong>facebook.com</strong>, type them in
-    new line each.
-    Sites will be blocked on their next attempted visit if enabled.
+  <h2>Block Site</h2>
+
+  Specify websites you want to block below. Each site must be on a <strong>seperate
+    line</strong>.
   </p>
-
   <textarea id="textarea" rows="10" cols="30" spellcheck="false"></textarea>
-  <br>
 
-  <div id="controls">
+  <div>
     <button id="save">Save</button>
-    <strong>Enabled?</strong><input id="checkbox" type="checkbox" checked="checked">
+    <div id="notif">success</div>
   </div>
 
   <p id="credits">
-    Created by <strong>Pavel Bucka (penge)</strong>.<br>
-    Support project by giving it a star (like) at <a target="_blank"
-      href="https://github.com/penge/block-site">https://github.com/penge/block-site</a>.
-    Let me know about your feature requests.
+    Created by <a target="_blank" href="https://github.com/penge/">Pavel Bucka (penge)</a><br>
+    Support this project by starring it on <a target="_blank" href="https://github.com/penge/block-site">GitHub</a>.
+    PRs are welcomed!
   </p>
-
   <script src="options.js"></script>
 </body>
 

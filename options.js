@@ -4,7 +4,7 @@
 
 const textarea = document.getElementById("textarea");
 const save = document.getElementById("save");
-const checkbox = document.getElementById("checkbox");
+const notif = document.getElementById("notif");
 
 textarea.placeholder = [
   "facebook.com",
@@ -19,14 +19,11 @@ save.addEventListener("click", () => {
     .split("\n")
     .map((s) => s.trim())
     .filter(Boolean);
+  
+    notif.style.display = "none";
+    notif.style.display = "block";
 
   chrome.storage.local.set({ blocked });
-});
-
-checkbox.addEventListener("change", (event) => {
-  const enabled = event.target.checked;
-
-  chrome.storage.local.set({ enabled });
 });
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -35,13 +32,12 @@ window.addEventListener("DOMContentLoaded", () => {
     if (!Array.isArray(blocked)) {
       return;
     }
+    // init css
+    notif.style.display = "none";
 
     // blocked
     var value = blocked.join("\r\n"); // display every blocked in new line
     textarea.value = value;
-
-    // enabled
-    checkbox.checked = enabled;
 
     // show controls
     document.body.classList.add("ready");
