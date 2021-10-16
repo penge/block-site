@@ -3,14 +3,21 @@
   "name": "Block Site",
   "description": "Blocks access to time-consuming websites (as you specify) to improve your productivity.",
   "version": "1.0",
-  "icons": { "128": "icon.png" },
+  "icons": {
+    "128": "icon.png"
+  },
   "options_page": "options.html",
-  "permissions": ["storage", "tabs"],
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "browser_action": {
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   }
 }

@@ -11,11 +11,14 @@ textarea.placeholder = [
   "instagram.com",
   "youtube.com",
   "twitter.com",
-  "reddit.com"
+  "reddit.com",
 ].join("\n");
 
 save.addEventListener("click", () => {
-  const blocked = textarea.value.split("\n").map(s => s.trim()).filter(Boolean);
+  const blocked = textarea.value
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
 
   chrome.storage.local.set({ blocked });
 });
