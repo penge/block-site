@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
+  <style>
+    body {
+      padding: 10px 15px;
+    }
+    button {
+      border-width: 0px;
+      min-width: 70px;
+    }
+
+    h3 {
+      margin: 0;
+    }
+
+    .mt {
+      margin-top: 5px;
+    }
+
+    .pure-button-group {
+      display: flex;
+    }
+
+    hr.solid {
+      border-top: 0.1px solid #bbb;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Block Site</h3>
+  <hr>
+  <div class="mt pure-button-group">
+    <button id="enable" class="pure-button pure-button-primary">Enable</button>
+    <button id="disable" class="pure-button">Disable</button>
+  </div>
+  <button id="options" class="mt pure-button">Options</button>
+</body>
+<script src="popup.js"></script>
+
+</html>
