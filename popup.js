@@ -2,13 +2,21 @@ const optionsButton = document.getElementById("options");
 const enableButton = document.getElementById("enable");
 const disableButton = document.getElementById("disable");
 
-optionsButton.addEventListener("click", () => {
-  chrome.runtime.openOptionsPage();
+// set inital CSS states based on chrome.local.enabled
+document.addEventListener("DOMContentLoaded", () => {
+  chrome.storage.local.get(["enabled"], (local) => {
+    if (local.enabled) {
+      enableButton.className = "pure-button-primary";
+      disableButton.className = "pure-button";
+    } else {
+      disableButton.className = "pure-button-primary";
+      enableButton.className = "pure-button";
+    }
+  });
 });
 
 enableButton.addEventListener("click", () => {
   chrome.storage.local.set({ enabled: true });
-  console.log("hi");
 
   enableButton.className = "pure-button-primary";
   disableButton.className = "pure-button";
@@ -20,4 +28,7 @@ disableButton.addEventListener("click", () => {
   disableButton.className = "pure-button-primary";
   enableButton.className = "pure-button";
 });
-8
+
+optionsButton.addEventListener("click", () => {
+  chrome.runtime.openOptionsPage();
+});
