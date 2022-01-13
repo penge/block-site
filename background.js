@@ -36,7 +36,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
 
     if (allowList.find((domain) => hostname === domain)) {
       return;
-    } else if (blockList.find((domain) => hostname === domain)) {
+    } else if (blockList.find((domain) => hostname.includes(domain))) {
       chrome.tabs.remove(tabId);
     }
   });
