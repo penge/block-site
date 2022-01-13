@@ -1,21 +1,19 @@
 # Block Site
 
-**Block Site** (formerly known as Stop Social Media) is a simple Chrome extension that improves your productivity by blocking the access to time-consuming websites (like during the working hours) as you specify in **Options**. **Block Site** is by default disabled and doesn't block any website until you say so in **Options**.
+**Block Site** (formerly known as Stop Social Media) is a simple Chrome extension that improves your productivity by blocking access to distracting websites as you specify.
 
-### Options
+### Usage
 
-To open Options, **right-click** on the **Block Site** icon in the toolbar (looks like a letter **B**) and choose **Options** from the menu.
-
-### Example
-
-The sites you decide to block to boost your productivity, is up to you. Here's an example:
+To configure, click on the **B** icon in the toolbar and select **Options** from the menu. Enter sites in the textbox, leaving a new line for each site, like this:
 
 ```
 facebook.com
 instagram.com
 youtube.com
+!music.youtube.com
 twitter.com
 reddit.com
+!reddit.com/r/MachineLearning
 ```
 
-See **Options** to configure.
+Sites starting with `!` will be exception to the rule, allowed.
