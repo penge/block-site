@@ -32,12 +32,9 @@
     transition: opacity .7s;
   }
   #controls {
+    display: flex;
+    align-items: center;
     transition: opacity 1s;
-  }
-  #save {
-    font-size: 150%;
-    font-weight: bold;
-    margin-right: 15px;
   }
   #checkbox {
     width: 1.3em;
@@ -68,9 +65,11 @@
 <br>
 
 <div id="controls">
-  <button id="save">Save</button>
-  <strong>Enabled?</strong><input id="checkbox" type="checkbox" checked="checked">
+  <strong>Enabled?</strong><input id="checkbox" type="checkbox">
 </div>
+
+<br>
+<span>All changes are saved automatically.</span>
 
 <p id="credits">
   Created by <a target="_blank" href="https://github.com/penge">Pavel Bucka (penge)</a><br>

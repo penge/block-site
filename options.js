@@ -3,7 +3,6 @@
 /* global chrome, window, document */
 
 const textarea = document.getElementById("textarea");
-const save = document.getElementById("save");
 const checkbox = document.getElementById("checkbox");
 
 textarea.placeholder = [
@@ -16,8 +15,8 @@ textarea.placeholder = [
   "!reddit.com/r/MachineLearning",
 ].join("\n");
 
-save.addEventListener("click", () => {
-  const blocked = textarea.value.split("\n").map(s => s.trim()).filter(Boolean);
+textarea.addEventListener("change", (event) => {
+  const blocked = event.target.value.split("\n").map(s => s.trim()).filter(Boolean);
 
   chrome.storage.local.set({ blocked });
 });
@@ -42,7 +41,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // enabled
     checkbox.checked = enabled;
 
-    // show controls
+    // UI ready
     document.body.classList.add("ready");
   });
 });
