@@ -2,11 +2,11 @@
 
 /* global chrome, window, document */
 
-const textarea = document.getElementById("textarea");
-const save = document.getElementById("save");
-const checkbox = document.getElementById("checkbox");
+const blockedList = document.getElementById("blocked-list");
+const resolutionSelect = document.getElementById("resolution-select");
+const enabledToggle = document.getElementById("enabled-toggle");
 
-textarea.placeholder = [
+blockedList.placeholder = [
   "facebook.com",
   "instagram.com",
   "youtube.com",
@@ -16,33 +16,42 @@ textarea.placeholder = [
   "!reddit.com/r/MachineLearning",
 ].join("\n");
 
-save.addEventListener("click", () => {
-  const blocked = textarea.value.split("\n").map(s => s.trim()).filter(Boolean);
+blockedList.addEventListener("change", (event) => {
+  const blocked = event.target.value.split("\n").map(s => s.trim()).filter(Boolean);
 
   chrome.storage.local.set({ blocked });
 });
 
-checkbox.addEventListener("change", (event) => {
+resolutionSelect.addEventListener("change", (event) => {
+  const resolution = event.target.value;
+
+  chrome.storage.local.set({ resolution });
+});
+
+enabledToggle.addEventListener("change", (event) => {
   const enabled = event.target.checked;
 
   chrome.storage.local.set({ enabled });
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  chrome.storage.local.get(["blocked", "enabled"], function (local) {
-    const { blocked, enabled } = local;
+  chrome.storage.local.get(["enabled", "blocked", "resolution"], function (local) {
+    const { enabled, blocked, resolution } = local;
     if (!Array.isArray(blocked)) {
       return;
     }
 
     // blocked
     var value = blocked.join("\r\n"); // display every blocked in new line
-    textarea.value = value;
+    blockedList.value = value;
+
+    // resolution
+    resolutionSelect.value = resolution;
 
     // enabled
-    checkbox.checked = enabled;
+    enabledToggle.checked = enabled;
 
-    // show controls
+    // UI ready
     document.body.classList.add("ready");
   });
 });

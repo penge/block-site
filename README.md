@@ -17,3 +17,11 @@ reddit.com
 ```
 
 Sites starting with `!` will be exception to the rule, allowed.
+
+Choose what should be done when you try to visit a blocked site, options are:
+<ol type="A">
+<li>Close Tab</li>
+<li>Show Blocked info page (page that shows an information about the blocked site)</li>
+</ol>
+
+Last but not least, see a checkbox to enable/disable the blocking.

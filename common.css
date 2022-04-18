@@ -1,0 +1,20 @@
+html {
+  font-size: 30px;
+}
+
+body {
+  margin: 0 auto;
+  padding: 50px;
+  font-family: Calibri, Helvetica, Arial, sans-serif;
+  line-height: 150%;
+}
+
+a {
+  font-weight: bold;
+  color: black;
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
