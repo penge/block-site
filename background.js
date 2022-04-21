@@ -84,7 +84,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
       chrome.tabs.remove(tabId);
       break;
     case SHOW_BLOCKED_INFO_PAGE:
-      chrome.tabs.update({ url: `${chrome.runtime.getURL("blocked.html")}?url=${url}` });
+      chrome.tabs.update(tabId, { url: `${chrome.runtime.getURL("blocked.html")}?url=${url}` });
       break;
     }
   });
