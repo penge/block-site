@@ -24,8 +24,8 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
-  const { url } = changeInfo;
+chrome.webNavigation.onBeforeNavigate.addListener(function (details) {
+  const { tabId, url } = details;
   if (!url || !url.startsWith("http")) {
     return;
   }
