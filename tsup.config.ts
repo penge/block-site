@@ -8,4 +8,5 @@ export default defineConfig({
     "src/options.ts",
   ],
   target: "es2022",
+  format: "esm",
 });

@@ -7,6 +7,8 @@
   "options_page": "options.html",
   "permissions": ["storage", "webNavigation"],
   "background": {
-    "service_worker": "background.js"
-  }
+    "service_worker": "background.mjs",
+    "type": "module"
+  },
+  "minimum_chrome_version": "92"
 }
