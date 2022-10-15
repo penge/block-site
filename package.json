@@ -1,0 +1,30 @@
+{
+  "name": "block-site",
+  "version": "3.0.0-rc",
+  "description": "Blocks access to distracting websites to improve your productivity.",
+  "author": "Pavel Bucka",
+  "license": "MIT",
+  "repository": "github:penge/block-site",
+  "private": true,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts",
+    "test": "jest",
+    "build": "tsup && npm run copy",
+    "copy": "copyfiles --up 1 public/** dist && copyfiles manifest.json dist"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.197",
+    "@types/jest": "^29.1.2",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.25.0",
+    "jest": "^29.2.0",
+    "ts-jest": "^29.0.3",
+    "tsup": "^6.2.3"
+  }
+}
