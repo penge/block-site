@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Block Site</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="options.css">
+  <script defer src="options.js"></script>
+</head>
+
+<body>
+  <h1>Block Site</h1>
+  <p>
+    Specify sites you want to block below. Each site must be on a <strong>seperate line</strong>.
+    Sites starting with <code>!</code> will be exception to the rule, allowed.
+  </p>
+
+  <textarea id="blocked-list" rows="10" cols="50" spellcheck="false"></textarea>
+  <br>
+
+  <div id="controls">
+    <div>
+      <label for="resolution-select">What to do when a site is blocked?</label>
+      <select id="resolution-select">
+        <option value="CLOSE_TAB">Close Tab</option>
+        <option value="SHOW_BLOCKED_INFO_PAGE">Show Blocked info page</option>
+      </select>
+    </div>
+    <div>
+      <label for="enabled-toggle">Enabled?</label>
+      <input id="enabled-toggle" type="checkbox">
+    </div>
+  </div>
+
+  <br>
+  <span>All changes are saved automatically.</span>
+
+  <p id="credits">
+    Created by <a target="_blank" href="https://github.com/penge">Pavel Bucka (penge)</a><br>
+    Support this project by starring it on <a target="_blank" href="https://github.com/penge/block-site">GitHub</a>.
+    Let me know about your feature requests.
+  </p>
+</body>
+
+</html>

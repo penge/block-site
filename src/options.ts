@@ -1,10 +1,6 @@
-"use strict";
-
-/* global chrome, window, document */
-
-const blockedList = document.getElementById("blocked-list");
-const resolutionSelect = document.getElementById("resolution-select");
-const enabledToggle = document.getElementById("enabled-toggle");
+const blockedList = document.getElementById("blocked-list") as HTMLTextAreaElement;
+const resolutionSelect = document.getElementById("resolution-select") as HTMLSelectElement;
+const enabledToggle = document.getElementById("enabled-toggle") as HTMLInputElement;
 
 blockedList.placeholder = [
   "facebook.com",
@@ -17,19 +13,19 @@ blockedList.placeholder = [
 ].join("\n");
 
 blockedList.addEventListener("change", (event) => {
-  const blocked = event.target.value.split("\n").map(s => s.trim()).filter(Boolean);
+  const blocked = (event.target as HTMLTextAreaElement).value.split("\n").map(s => s.trim()).filter(Boolean);
 
   chrome.storage.local.set({ blocked });
 });
 
 resolutionSelect.addEventListener("change", (event) => {
-  const resolution = event.target.value;
+  const resolution = (event.target as HTMLSelectElement).value;
 
   chrome.storage.local.set({ resolution });
 });
 
 enabledToggle.addEventListener("change", (event) => {
-  const enabled = event.target.checked;
+  const enabled = (event.target as HTMLInputElement).checked;
 
   chrome.storage.local.set({ enabled });
 });
@@ -42,7 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     // blocked
-    var value = blocked.join("\r\n"); // display every blocked in new line
+    const value = (blocked as string[]).join("\r\n"); // display every blocked in new line
     blockedList.value = value;
 
     // resolution
