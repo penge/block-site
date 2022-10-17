@@ -1,3 +1,5 @@
+import storage, { Schema } from "./helpers/storage";
+
 const blockedList = document.getElementById("blocked-list") as HTMLTextAreaElement;
 const resolutionSelect = document.getElementById("resolution-select") as HTMLSelectElement;
 const enabledToggle = document.getElementById("enabled-toggle") as HTMLInputElement;
@@ -13,25 +15,25 @@ blockedList.placeholder = [
 ].join("\n");
 
 blockedList.addEventListener("change", (event) => {
-  const blocked = (event.target as HTMLTextAreaElement).value.split("\n").map(s => s.trim()).filter(Boolean);
+  const blocked = (event.target as HTMLTextAreaElement).value.split("\n").map((s) => s.trim()).filter(Boolean);
 
-  chrome.storage.local.set({ blocked });
+  storage.set<Pick<Schema, "blocked">>({ blocked });
 });
 
 resolutionSelect.addEventListener("change", (event) => {
   const resolution = (event.target as HTMLSelectElement).value;
 
-  chrome.storage.local.set({ resolution });
+  storage.set<Pick<Schema, "resolution">>({ resolution });
 });
 
 enabledToggle.addEventListener("change", (event) => {
   const enabled = (event.target as HTMLInputElement).checked;
 
-  chrome.storage.local.set({ enabled });
+  storage.set<Pick<Schema, "enabled">>({ enabled });
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  chrome.storage.local.get(["enabled", "blocked", "resolution"], function (local) {
+  storage.get(["enabled", "blocked", "resolution"], (local) => {
     const { enabled, blocked, resolution } = local;
     if (!Array.isArray(blocked)) {
       return;
