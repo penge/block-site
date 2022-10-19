@@ -32,7 +32,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.webNavigation.onBeforeNavigate.addListener((details) => {
   const { tabId, url, timeStamp } = details;
-  if (!url || !url.startsWith("http")) {
+  if (!url || !url.startsWith("http") || details.frameId !== 0) {
     return;
   }
 
