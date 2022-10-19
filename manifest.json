@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Block Site",
   "description": "Blocks access to distracting websites to improve your productivity.",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "icons": { "128": "icon.png" },
   "options_page": "options.html",
   "permissions": ["storage", "webNavigation"],
