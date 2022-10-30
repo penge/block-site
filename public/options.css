@@ -1,10 +1,18 @@
 body:not(.ready) #blocked-list::placeholder,
-body:not(.ready) #controls {
+body:not(.ready) #options {
   opacity: 0;
 }
 
-body:not(.ready) #controls {
+body:not(.ready) #options {
   visibility: hidden;
+}
+
+body:not(.resolution-SHOW_BLOCKED_INFO_PAGE) #blocked-info-page-details {
+  display: none;
+}
+
+body:not(.counter-show) #counter-period-option {
+  display: none;
 }
 
 #blocked-list {
@@ -13,6 +21,10 @@ body:not(.ready) #controls {
   font-size: inherit;
   line-height: inherit;
   white-space: pre;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 700px;
+  height: 350px;
 }
 
 #blocked-list::placeholder {
@@ -21,13 +33,22 @@ body:not(.ready) #controls {
   transition: opacity .7s;
 }
 
-#controls {
+#options {
   transition: opacity 1s;
 }
 
-#controls > div {
+.option {
   display: flex;
   align-items: center;
+}
+
+.option.baseline {
+  align-items: baseline;
+}
+
+.option > div {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
@@ -38,11 +59,15 @@ label {
 select {
   font-size: inherit;
   border: 1px solid;
+  padding: 3px;
 }
 
-input[type=checkbox] {
-  width: 1.3em;
-  height: 1.3em;
+fieldset {
+  display: inline-block;
+  margin: 0;
+  border: 1px solid;
+  border-top: none;
+  padding: 6px;
 }
 
 #credits {

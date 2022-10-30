@@ -12,19 +12,22 @@
   },
   "scripts": {
     "lint": "eslint src --ext .ts",
-    "test": "jest",
-    "build": "tsup && npm run copy",
+    "test": "TZ=UTC jest",
+    "build": "tsc --noEmit && tsup && npm run copy",
     "copy": "copyfiles --up 1 public/** dist && copyfiles manifest.json dist"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.198",
+    "@types/chrome": "^0.0.200",
     "@types/jest": "^29.1.2",
-    "@typescript-eslint/eslint-plugin": "^5.40.0",
-    "@typescript-eslint/parser": "^5.40.0",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^8.25.0",
+    "eslint": "^8.26.0",
     "jest": "^29.2.0",
     "ts-jest": "^29.0.3",
     "tsup": "^6.3.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.6"
   }
 }
