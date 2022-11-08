@@ -4,10 +4,10 @@
 
 ## Icon
 
-<img src="public/icon_128.png" height="48">
+<img src="public/icon_128.png" width="48">
 
-<img src="public/toolbar/light.png" height="48">
-<img src="public/toolbar/dark.png" height="48">
+<img src="public/toolbar/light.png" width="480">
+<img src="public/toolbar/dark.png" width="480">
 
 ## Usage
 
