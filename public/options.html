@@ -9,7 +9,10 @@
 </head>
 
 <body>
-  <h1>Block Site</h1>
+  <h1>
+    <img src="icon_128.png" height="48px">
+    <span>Block Site</span>
+  </h1>
   <p>
     Specify sites you want to block below. Each site must be on a <strong>seperate line</strong>.
     Sites starting with <code>!</code> will be exception to the rule, allowed.
@@ -18,22 +21,45 @@
   <textarea id="blocked-list" rows="10" cols="50" spellcheck="false"></textarea>
   <br>
 
-  <div id="controls">
-    <div>
-      <label for="resolution-select">What to do when a site is blocked?</label>
-      <select id="resolution-select">
-        <option value="CLOSE_TAB">Close Tab</option>
-        <option value="SHOW_BLOCKED_INFO_PAGE">Show Blocked info page</option>
+  <div id="options">
+    <div class="option">
+      <label>Blocking enabled?</label>
+      <select id="enabled">
+        <option value="YES">Yes</option>
+        <option value="NO">No</option>
       </select>
     </div>
-    <div>
-      <label for="enabled-toggle">Enabled?</label>
-      <input id="enabled-toggle" type="checkbox">
+
+    <div class="option baseline">
+      <label>What to do when a site is blocked?</label>
+      <div>
+        <select id="resolution">
+          <option value="CLOSE_TAB">Close Tab</option>
+          <option value="SHOW_BLOCKED_INFO_PAGE">Show Blocked info page</option>
+        </select>
+
+        <fieldset id="blocked-info-page-details">
+          <div class="option">
+            <label>Show how many times blocked?</label>
+            <select id="counter-show">
+              <option value="YES">Yes</option>
+              <option value="NO">No</option>
+            </select>
+          </div>
+
+          <div id="counter-period-option" class="option">
+            <label>Blocked period?</label>
+            <select id="counter-period">
+              <option value="ALL_TIME">All Time</option>
+              <option value="THIS_MONTH">This Month</option>
+              <option value="THIS_WEEK">This Week</option>
+              <option value="TODAY">Today</option>
+            </select>
+          </div>
+        </fieldset>
+      </div>
     </div>
   </div>
-
-  <br>
-  <span>All changes are saved automatically.</span>
 
   <p id="credits">
     Created by <a target="_blank" href="https://github.com/penge">Pavel Bucka (penge)</a><br>

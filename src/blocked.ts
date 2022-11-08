@@ -1,18 +1,22 @@
-const getParam = (name: string) => (new URLSearchParams(window.location.search)).get(name);
-
-const setSpan = (id: string, content: string) => {
-  const span = document.getElementById(id) as HTMLSpanElement;
-  span.textContent = content;
-};
+import { VALIDATORS, CounterPeriod } from "./storage";
+import getBlockedMessage from "./helpers/get-blocked-message";
 
 window.addEventListener("DOMContentLoaded", () => {
-  const url = getParam("url");
-  if (url) {
-    setSpan("url", url);
+  const params = new URLSearchParams(window.location.search);
+
+  const rule = params.get("rule");
+  if (!rule) {
+    return;
   }
 
-  const count = getParam("count");
-  if (count) {
-    setSpan("count", ` ${count}x`);
-  }
+  const count = params.get("count");
+  const period = params.get("period");
+
+  const message = getBlockedMessage({
+    rule,
+    count: count || undefined,
+    period: VALIDATORS.counterPeriod(period) ? period as CounterPeriod : undefined,
+  });
+
+  (document.getElementById("message") as HTMLParagraphElement).innerHTML = message;
 });

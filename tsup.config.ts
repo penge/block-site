@@ -9,4 +9,8 @@ export default defineConfig({
   ],
   target: "es2022",
   format: "esm",
+  noExternal: ["dayjs"],
+  esbuildOptions(options) {
+    options.chunkNames = "chunks/[name]-[hash]";
+  }
 });

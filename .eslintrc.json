@@ -17,7 +17,7 @@
   ],
   "rules": {
     "indent": ["error", 2],
-    "quotes": ["error", "double"],
+    "quotes": ["error", "double", { "avoidEscape": true }],
     "semi": ["error", "always"],
     "no-multi-spaces": ["error", { "ignoreEOLComments": true }],
     "arrow-parens": ["error", "always"]

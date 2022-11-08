@@ -1,55 +1,99 @@
-import storage, { Schema } from "./helpers/storage";
+import storage, { Schema, Resolution, CounterPeriod, RESOLUTIONS } from "./storage";
 
-const blockedList = document.getElementById("blocked-list") as HTMLTextAreaElement;
-const resolutionSelect = document.getElementById("resolution-select") as HTMLSelectElement;
-const enabledToggle = document.getElementById("enabled-toggle") as HTMLInputElement;
+const UI = (() => {
+  const elements = {
+    blockedList: document.getElementById("blocked-list") as HTMLTextAreaElement,
+    enabled: document.getElementById("enabled") as HTMLSelectElement,
+    resolution: document.getElementById("resolution") as HTMLSelectElement,
+    counterShow: document.getElementById("counter-show") as HTMLSelectElement,
+    counterPeriod: document.getElementById("counter-period") as HTMLSelectElement,
+  };
 
-blockedList.placeholder = [
-  "facebook.com",
-  "instagram.com",
-  "youtube.com",
-  "!music.youtube.com",
-  "twitter.com",
-  "reddit.com",
-  "!reddit.com/r/MachineLearning",
-].join("\n");
+  elements.blockedList.placeholder = [
+    "facebook.com",
+    "instagram.com",
+    "youtube.com",
+    "!music.youtube.com",
+    "twitter.com",
+    "reddit.com",
+    "!reddit.com/r/MachineLearning",
+  ].join("\n");
 
-blockedList.addEventListener("change", (event) => {
-  const blocked = (event.target as HTMLTextAreaElement).value.split("\n").map((s) => s.trim()).filter(Boolean);
+  const booleanToString = (b: boolean) => b ? "YES" : "NO";
+  const stringToBoolean = (s: string) => s === "YES";
 
-  storage.set<Pick<Schema, "blocked">>({ blocked });
-});
+  const getEventTargetValue = (event: Event) => (event.target as HTMLTextAreaElement | HTMLSelectElement).value;
 
-resolutionSelect.addEventListener("change", (event) => {
-  const resolution = (event.target as HTMLSelectElement).value;
+  elements.blockedList.addEventListener("input", (event) => {
+    const blocked = getEventTargetValue(event).split("\n").map((s) => s.trim()).filter(Boolean);
+    storage.set<Pick<Schema, "blocked">>({ blocked });
+  });
 
-  storage.set<Pick<Schema, "resolution">>({ resolution });
-});
+  elements.enabled.addEventListener("change", (event) => {
+    const enabled = stringToBoolean(getEventTargetValue(event));
+    storage.set<Pick<Schema, "enabled">>({ enabled });
+  });
 
-enabledToggle.addEventListener("change", (event) => {
-  const enabled = (event.target as HTMLInputElement).checked;
+  elements.resolution.addEventListener("change", (event) => {
+    const resolution = getEventTargetValue(event) as Resolution;
+    storage.set<Pick<Schema, "resolution">>({ resolution });
+  });
 
-  storage.set<Pick<Schema, "enabled">>({ enabled });
-});
+  elements.counterShow.addEventListener("change", (event) => {
+    const counterShow = stringToBoolean(getEventTargetValue(event));
+    storage.set<Pick<Schema, "counterShow">>({ counterShow });
+  });
 
-window.addEventListener("DOMContentLoaded", () => {
-  storage.get(["enabled", "blocked", "resolution"], (local) => {
-    const { enabled, blocked, resolution } = local;
-    if (!Array.isArray(blocked)) {
-      return;
+  elements.counterPeriod.addEventListener("change", (event) => {
+    const counterPeriod = getEventTargetValue(event) as CounterPeriod;
+    storage.set<Pick<Schema, "counterPeriod">>({ counterPeriod });
+  });
+
+  const init = <T extends Partial<Schema>>(items: T) => {
+    if (items.blocked !== undefined) {
+      elements.blockedList.value = items.blocked.join("\r\n"); // display every blocked on a new line
     }
 
-    // blocked
-    const value = (blocked as string[]).join("\r\n"); // display every blocked in new line
-    blockedList.value = value;
+    if (items.enabled !== undefined) {
+      elements.enabled.value = booleanToString(items.enabled);
+    }
 
-    // resolution
-    resolutionSelect.value = resolution;
+    if (items.resolution !== undefined) {
+      elements.resolution.value = items.resolution;
+      RESOLUTIONS.forEach((oneResolution) => {
+        document.body.classList.remove(`resolution-${oneResolution}`);
+      });
+      document.body.classList.add(`resolution-${items.resolution}`);
+    }
 
-    // enabled
-    enabledToggle.checked = enabled;
+    if (items.counterShow !== undefined) {
+      elements.counterShow.value = booleanToString(items.counterShow);
+      document.body.classList.toggle("counter-show", items.counterShow);
+    }
 
-    // UI ready
+    if (items.counterPeriod !== undefined) {
+      elements.counterPeriod.value = items.counterPeriod;
+    }
+  };
+
+  return { elements, init };
+})();
+
+window.addEventListener("DOMContentLoaded", () => {
+  const keys: (keyof Schema)[] = ["blocked", "enabled", "resolution", "counterShow", "counterPeriod"];
+
+  storage.get(keys, (local) => {
+    UI.init(local);
     document.body.classList.add("ready");
+  });
+
+  chrome.storage.onChanged.addListener((changes, namespace) => {
+    if (namespace === "local") {
+      keys.forEach((key) => {
+        if (changes[key]) {
+          UI.init({ [key]: changes[key].newValue });
+        }
+      });
+    }
   });
 });
