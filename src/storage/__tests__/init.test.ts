@@ -13,7 +13,7 @@ test("getRevisitedSchema() returns defaults for any invalid attribute", () => {
     counter: DEFAULTS.counter,
     counterShow: DEFAULTS.counterShow,
     counterPeriod: DEFAULTS.counterPeriod,
-    resolution: "CLOSE_TAB",
+    resolution: DEFAULTS.resolution,
   } as Partial<Schema>);
 
   expect(getRevisitedSchema({
