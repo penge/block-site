@@ -1,5 +1,5 @@
 import initStorage from "./storage/init";
-import storage, { Schema } from "./storage";
+import storage from "./storage";
 import findRule from "./helpers/find-rule";
 import * as counterHelper from "./helpers/counter";
 import getBlockedUrl from "./helpers/get-blocked-url";
@@ -27,7 +27,7 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
     if (!foundRule || foundRule.type === "allow") {
       storage.get(["counter"], ({ counter }) => {
         counterHelper.flushObsoleteEntries({ blocked, counter });
-        storage.set<Pick<Schema, "counter">>({ counter });
+        storage.set({ counter });
       });
       return;
     }
@@ -38,7 +38,7 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
         counter,
         countFromTimeStamp: counterHelper.counterPeriodToTimeStamp(counterPeriod, new Date().getTime()),
       });
-      storage.set<Pick<Schema, "counter">>({ counter });
+      storage.set({ counter });
 
       switch (resolution) {
       case "CLOSE_TAB":

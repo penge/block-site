@@ -26,27 +26,27 @@ const UI = (() => {
 
   elements.blockedList.addEventListener("input", (event) => {
     const blocked = getEventTargetValue(event).split("\n").map((s) => s.trim()).filter(Boolean);
-    storage.set<Pick<Schema, "blocked">>({ blocked });
+    storage.set({ blocked });
   });
 
   elements.enabled.addEventListener("change", (event) => {
     const enabled = stringToBoolean(getEventTargetValue(event));
-    storage.set<Pick<Schema, "enabled">>({ enabled });
+    storage.set({ enabled });
   });
 
   elements.resolution.addEventListener("change", (event) => {
     const resolution = getEventTargetValue(event) as Resolution;
-    storage.set<Pick<Schema, "resolution">>({ resolution });
+    storage.set({ resolution });
   });
 
   elements.counterShow.addEventListener("change", (event) => {
     const counterShow = stringToBoolean(getEventTargetValue(event));
-    storage.set<Pick<Schema, "counterShow">>({ counterShow });
+    storage.set({ counterShow });
   });
 
   elements.counterPeriod.addEventListener("change", (event) => {
     const counterPeriod = getEventTargetValue(event) as CounterPeriod;
-    storage.set<Pick<Schema, "counterPeriod">>({ counterPeriod });
+    storage.set({ counterPeriod });
   });
 
   const init = <T extends Partial<Schema>>(items: T) => {
