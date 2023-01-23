@@ -19,5 +19,6 @@
     "service_worker": "background.mjs",
     "type": "module"
   },
+  "incognito": "split",
   "minimum_chrome_version": "92"
 }
