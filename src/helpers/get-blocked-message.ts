@@ -1,21 +1,13 @@
 import { CounterPeriod } from "../storage";
+import { GetBlockedUrlParams } from "./get-blocked-url";
 
 const periodStrings: Record<CounterPeriod, string> = {
-  "ALL_TIME": "",
+  "ALL_TIME": "overall",
   "THIS_MONTH": "this month",
   "THIS_WEEK": "this week",
   "TODAY": "today",
 };
 
-interface GetBlockedMessageParams {
-  rule: string
-  count?: string
-  period?: CounterPeriod
-}
-
-export default ({ rule, count, period }: GetBlockedMessageParams): string => {
-  const periodString: string = period ? periodStrings[period] : "";
-  return count
-    ? `<span id="rule">${rule}</span> was blocked <span id="count">${count}x</span>${periodString ? ` <span id="period">${periodString}</span>` : ""}.`
-    : `<span id="rule">${rule}</span> was blocked.`;
-};
+export default ({ url, rule, countParams: cp }: GetBlockedUrlParams): string => cp
+  ? `<span id="url">${url}</span> <b>was blocked</b> (${cp.count}x ${periodStrings[cp.period]}) by rule <span id="rule">${rule}</span>`
+  : `<span id="url">${url}</span> <b>was blocked</b> by rule <span id="rule">${rule}</span>`;
