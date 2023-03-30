@@ -1,4 +1,6 @@
-import storage, { Schema, Resolution, CounterPeriod, RESOLUTIONS } from "./storage";
+import storage, {
+  Schema, Resolution, CounterPeriod, RESOLUTIONS, BLOCKED_EXAMPLE,
+} from "./storage";
 
 const UI = (() => {
   const elements = {
@@ -9,15 +11,7 @@ const UI = (() => {
     counterPeriod: document.getElementById("counter-period") as HTMLSelectElement,
   };
 
-  elements.blockedList.placeholder = [
-    "facebook.com",
-    "instagram.com",
-    "youtube.com",
-    "!music.youtube.com",
-    "twitter.com",
-    "reddit.com",
-    "!reddit.com/r/MachineLearning",
-  ].join("\n");
+  elements.blockedList.placeholder = BLOCKED_EXAMPLE.join("\n");
 
   const booleanToString = (b: boolean) => b ? "YES" : "NO";
   const stringToBoolean = (s: string) => s === "YES";

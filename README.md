@@ -18,7 +18,6 @@ facebook.com
 instagram.com
 youtube.com
 !music.youtube.com
-twitter.com
 reddit.com
 !reddit.com/r/MachineLearning
 ```
