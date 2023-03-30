@@ -27,4 +27,5 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   (document.getElementById("message") as HTMLParagraphElement).innerHTML = message;
+  document.body.classList.add("ready");
 });

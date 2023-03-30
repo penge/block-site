@@ -11,7 +11,7 @@
 
 ## Usage
 
-To configure, click on the **B** icon in the toolbar. Enter the sites you would like to block, each on a separate line, example:
+Click on the icon. Enter sites you would like to block, prepend `!` to exclude site from blocking, example:
 
 ```
 facebook.com
@@ -22,16 +22,12 @@ reddit.com
 !reddit.com/r/MachineLearning
 ```
 
-Sites starting with `!` will be exception to the rule, allowed.
+Choose how to resolve blocked site: **Close Tab**, or **Show Blocked info page**.
 
-Choose what should be done when you try to visit a blocked site:
-
-<ol type="A">
-<li>Close Tab</li>
-<li>Show Blocked info page (shows information about the blocked site, and if enabled, a blocked count over a specified period of time: All Time, This Month, This Week, Today)</li>
-</ol>
+**Blocked info page** shows what _url_ was blocked, based on which _rule_ it was blocked, and optionally a blocked count over a chosen period of time:
+_All Time_, _This Month_, _This Week_, or _Today_.
 
 ## Privacy notice
 
 Block Site doesn't collect any personal information or data.
-Any user settings are stored in the browser only.
+Any user settings are stored in your browser only.
