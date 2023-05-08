@@ -1,10 +1,6 @@
-body:not(.ready) #blocked-list::placeholder,
-body:not(.ready) #options {
-  opacity: 0;
-}
-
-body:not(.ready) #options {
-  visibility: hidden;
+:root {
+  --area-border-color: black;
+  --area-background-color: white;
 }
 
 body:not(.resolution-SHOW_BLOCKED_INFO_PAGE) #blocked-info-page-details {
@@ -15,9 +11,15 @@ body:not(.counter-show) #counter-period-option {
   display: none;
 }
 
+textarea {
+  background-color: var(--area-background-color);
+  color: var(--text-color);
+}
+
 #blocked-list {
-  border: 3px solid;
+  border: 3px solid var(--area-border-color);
   outline: none;
+  resize: none;
   font-size: inherit;
   line-height: inherit;
   white-space: pre;
@@ -25,6 +27,7 @@ body:not(.counter-show) #counter-period-option {
   width: 100%;
   max-width: 700px;
   height: 350px;
+  padding: .5em .75em;
 }
 
 #blocked-list::placeholder {
@@ -33,13 +36,13 @@ body:not(.counter-show) #counter-period-option {
   transition: opacity .7s;
 }
 
-#options {
-  transition: opacity 1s;
-}
-
 .option {
   display: flex;
   align-items: center;
+}
+
+.option:not(:last-child) {
+  margin-bottom: 6px;
 }
 
 .option.baseline {
@@ -56,20 +59,45 @@ label {
   margin-right: .6em;
 }
 
+select, fieldset {
+  border: 1px solid var(--area-border-color);
+  color: var(--text-color);
+}
+
 select {
+  background-color: var(--area-background-color);
   font-size: inherit;
-  border: 1px solid;
   padding: 3px;
 }
 
 fieldset {
   display: inline-block;
   margin: 0;
-  border: 1px solid;
   border-top: none;
   padding: 6px;
 }
 
 #credits {
   margin-top: 5em;
+}
+
+#star {
+  color: gold;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --area-border-color: #222;
+    --area-background-color: #222;
+  }
+
+  #star {
+    filter: saturate(50%);
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #resolution-option {
+    flex-direction: column;
+  }
 }

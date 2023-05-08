@@ -39,3 +39,12 @@ export const VALIDATORS: Readonly<Record<keyof Schema, (value: unknown) => boole
   counterPeriod: (value) => COUNTER_PERIODS.includes(value as CounterPeriod),
   resolution: (value) => RESOLUTIONS.includes(value as Resolution),
 };
+
+export const BLOCKED_EXAMPLE: string[] = [
+  "facebook.com",
+  "instagram.com",
+  "youtube.com",
+  "!music.youtube.com",
+  "reddit.com",
+  "!reddit.com/r/MachineLearning",
+];

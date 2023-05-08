@@ -47,6 +47,7 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
       case "SHOW_BLOCKED_INFO_PAGE": {
         chrome.tabs.update(tabId, {
           url: getBlockedUrl({
+            url,
             rule: foundRule.path,
             countParams: counterShow ? { count, period: counterPeriod } : undefined },
           )},
