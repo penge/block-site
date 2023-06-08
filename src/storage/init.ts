@@ -15,11 +15,13 @@ export const getRevisitedSchema = (local: Partial<Schema> | Record<string, unkno
   return revisitedSchema;
 };
 
-export default () => {
+export default (callback: () => void) => {
   storage.getAll((local) => {
     const revisitedSchema = getRevisitedSchema(local);
     if (Object.keys(revisitedSchema).length) {
-      storage.set(revisitedSchema);
+      storage.set(revisitedSchema, callback);
+      return;
     }
+    callback();
   });
 };
