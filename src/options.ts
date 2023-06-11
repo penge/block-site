@@ -81,13 +81,11 @@ window.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("ready");
   });
 
-  chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === "local") {
-      keys.forEach((key) => {
-        if (changes[key]) {
-          UI.init({ [key]: changes[key].newValue });
-        }
-      });
-    }
+  chrome.storage.local.onChanged.addListener((changes) => {
+    keys.forEach((key) => {
+      if (changes[key]) {
+        UI.init({ [key]: changes[key].newValue });
+      }
+    });
   });
 });

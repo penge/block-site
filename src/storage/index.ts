@@ -2,8 +2,8 @@ import { Schema } from "./schema";
 
 export * from "./schema";
 
-const set = <T extends Partial<Schema>>(items: T) => {
-  chrome.storage.local.set(items);
+const set = <T extends Partial<Schema>>(items: T, callback?: () => void) => {
+  chrome.storage.local.set(items, callback);
 };
 
 const get = <T extends keyof Schema>(keys: T[], callback: (items: Pick<Schema, T>) => void) => {
