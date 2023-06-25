@@ -27,10 +27,8 @@ const createContextMenu = () => {
       const normalizedUrl = normalizeUrl(url);
       const updatedBlocked = [...blocked, normalizedUrl];
 
-      storage.set({ blocked: updatedBlocked }, () => {
-        const timeStamp = Date.now();
-        blockSite({ tabId, url, timeStamp });
-      });
+      storage.set({ blocked: updatedBlocked });
+      blockSite({ blocked: updatedBlocked, tabId, url });
     });
   });
 };
@@ -46,7 +44,7 @@ export default () => {
     chrome.storage.local.onChanged.addListener((changes) => {
       if (changes["enabled"]) {
         chrome.contextMenus.removeAll(() => {
-          if (changes["enabled"].newValue) {
+          if (changes["enabled"].newValue as boolean) {
             createContextMenu();
           }
         });

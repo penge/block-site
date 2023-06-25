@@ -14,7 +14,12 @@
     }
   },
   "options_page": "options.html",
-  "permissions": ["storage", "webNavigation", "contextMenus"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation",
+    "contextMenus"
+  ],
   "background": {
     "service_worker": "background.mjs",
     "type": "module"
