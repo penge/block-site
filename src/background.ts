@@ -6,10 +6,10 @@ import blockSite from "./helpers/block-site";
 let __enabled: boolean;
 let __blocked: string[];
 
-initStorage(() => {
+initStorage().then(() => {
   createContextMenu();
 
-  storage.get(["enabled", "blocked"], ({ enabled, blocked }) => {
+  storage.get(["enabled", "blocked"]).then(({ enabled, blocked }) => {
     __enabled = enabled;
     __blocked = blocked;
   });
@@ -47,8 +47,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
     return;
   }
 
-  const { status, url } = changeInfo;
-  if (status !== "loading" || !url || !url.startsWith("http")) {
+  const { url } = changeInfo;
+  if (!url || !url.startsWith("http")) {
     return;
   }
 

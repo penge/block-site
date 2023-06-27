@@ -17,9 +17,10 @@ const UI = (() => {
   const stringToBoolean = (s: string) => s === "YES";
 
   const getEventTargetValue = (event: Event) => (event.target as HTMLTextAreaElement | HTMLSelectElement).value;
+  const stringToBlocked = (string: string) => string.split("\n").map((s) => s.trim()).filter(Boolean);
 
   elements.blockedList.addEventListener("input", (event) => {
-    const blocked = getEventTargetValue(event).split("\n").map((s) => s.trim()).filter(Boolean);
+    const blocked = stringToBlocked(getEventTargetValue(event));
     storage.set({ blocked });
   });
 
@@ -45,7 +46,10 @@ const UI = (() => {
 
   const init = <T extends Partial<Schema>>(items: T) => {
     if (items.blocked !== undefined) {
-      elements.blockedList.value = items.blocked.join("\r\n"); // display every blocked on a new line
+      const valueAsBlocked = stringToBlocked(elements.blockedList.value);
+      if (JSON.stringify(valueAsBlocked) !== JSON.stringify(items.blocked)) {
+        elements.blockedList.value = items.blocked.join("\r\n");
+      }
     }
 
     if (items.enabled !== undefined) {
@@ -76,7 +80,7 @@ const UI = (() => {
 window.addEventListener("DOMContentLoaded", () => {
   const keys: (keyof Schema)[] = ["blocked", "enabled", "resolution", "counterShow", "counterPeriod"];
 
-  storage.get(keys, (local) => {
+  storage.get(keys).then((local) => {
     UI.init(local);
     document.body.classList.add("ready");
   });
