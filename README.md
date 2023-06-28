@@ -1,6 +1,6 @@
 # Block Site
 
-**Block Site** (formerly known as _Stop Social Media_) is a simple **Chrome extension** that improves your productivity by blocking access to distracting websites as you specify.
+**Block Site** (formerly known as _Stop Social Media_) is a simple **Chrome/Firefox extension** that improves your productivity by blocking access to distracting websites as you specify.
 
 ## Icon
 

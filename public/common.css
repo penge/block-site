@@ -4,7 +4,7 @@
 }
 
 html {
-  font-size: 30px;
+  font-size: 22px;
 }
 
 body:not(.ready) {
@@ -17,6 +17,7 @@ body {
   padding: 50px 100px;
   color: var(--text-color);
   font-family: Calibri, Helvetica, Arial, sans-serif;
+  font-size: 100%;
   -webkit-font-smoothing: antialiased;
   line-height: 150%;
 }

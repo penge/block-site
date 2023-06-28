@@ -22,7 +22,7 @@ const createContextMenu = () => {
       return;
     }
 
-    storage.get(["blocked"], ({ blocked }) => {
+    storage.get(["blocked"]).then(({ blocked }) => {
       const url = info.pageUrl;
       const normalizedUrl = normalizeUrl(url);
       const updatedBlocked = [...blocked, normalizedUrl];
@@ -34,7 +34,7 @@ const createContextMenu = () => {
 };
 
 export default () => {
-  storage.get(["enabled"], ({ enabled }) => {
+  storage.get(["enabled"]).then(({ enabled }) => {
     chrome.contextMenus.removeAll(() => {
       if (enabled) {
         createContextMenu();
