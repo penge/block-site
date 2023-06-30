@@ -33,22 +33,10 @@ const createContextMenu = () => {
   });
 };
 
-export default () => {
-  storage.get(["enabled"]).then(({ enabled }) => {
-    chrome.contextMenus.removeAll(() => {
-      if (enabled) {
-        createContextMenu();
-      }
-    });
-
-    chrome.storage.local.onChanged.addListener((changes) => {
-      if (changes["enabled"]) {
-        chrome.contextMenus.removeAll(() => {
-          if (changes["enabled"].newValue as boolean) {
-            createContextMenu();
-          }
-        });
-      }
-    });
+export default (meetsCreateCondition: boolean) => {
+  chrome.contextMenus.removeAll(() => {
+    if (meetsCreateCondition) {
+      createContextMenu();
+    }
   });
 };

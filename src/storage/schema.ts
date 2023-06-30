@@ -15,6 +15,7 @@ export type CounterPeriod = typeof COUNTER_PERIODS[number];
 
 export interface Schema {
   enabled: boolean
+  contextMenu: boolean
   blocked: string[]
   counter: Record<string, number[]>
   counterShow: boolean
@@ -24,6 +25,7 @@ export interface Schema {
 
 export const DEFAULTS: Readonly<Schema> = {
   enabled: false,
+  contextMenu: false,
   blocked: [],
   counter: {},
   counterShow: false,
@@ -33,6 +35,7 @@ export const DEFAULTS: Readonly<Schema> = {
 
 export const VALIDATORS: Readonly<Record<keyof Schema, (value: unknown) => boolean>> = {
   enabled: (value) => typeof value === "boolean",
+  contextMenu: (value) => typeof value === "boolean",
   blocked: (value) => Array.isArray(value),
   counter: (value) => typeof value === "object",
   counterShow: (value) => typeof value === "boolean",
