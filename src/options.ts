@@ -4,8 +4,9 @@ import storage, {
 
 const UI = (() => {
   const elements = {
-    blockedList: document.getElementById("blocked-list") as HTMLTextAreaElement,
     enabled: document.getElementById("enabled") as HTMLSelectElement,
+    contextMenu: document.getElementById("context-menu") as HTMLSelectElement,
+    blockedList: document.getElementById("blocked-list") as HTMLTextAreaElement,
     resolution: document.getElementById("resolution") as HTMLSelectElement,
     counterShow: document.getElementById("counter-show") as HTMLSelectElement,
     counterPeriod: document.getElementById("counter-period") as HTMLSelectElement,
@@ -19,14 +20,19 @@ const UI = (() => {
   const getEventTargetValue = (event: Event) => (event.target as HTMLTextAreaElement | HTMLSelectElement).value;
   const stringToBlocked = (string: string) => string.split("\n").map((s) => s.trim()).filter(Boolean);
 
-  elements.blockedList.addEventListener("input", (event) => {
-    const blocked = stringToBlocked(getEventTargetValue(event));
-    storage.set({ blocked });
-  });
-
   elements.enabled.addEventListener("change", (event) => {
     const enabled = stringToBoolean(getEventTargetValue(event));
     storage.set({ enabled });
+  });
+
+  elements.contextMenu.addEventListener("change", (event) => {
+    const contextMenu = stringToBoolean(getEventTargetValue(event));
+    storage.set({ contextMenu });
+  });
+
+  elements.blockedList.addEventListener("input", (event) => {
+    const blocked = stringToBlocked(getEventTargetValue(event));
+    storage.set({ blocked });
   });
 
   elements.resolution.addEventListener("change", (event) => {
@@ -45,15 +51,19 @@ const UI = (() => {
   });
 
   const init = <T extends Partial<Schema>>(items: T) => {
+    if (items.enabled !== undefined) {
+      elements.enabled.value = booleanToString(items.enabled);
+    }
+
+    if (items.contextMenu !== undefined) {
+      elements.contextMenu.value = booleanToString(items.contextMenu);
+    }
+
     if (items.blocked !== undefined) {
       const valueAsBlocked = stringToBlocked(elements.blockedList.value);
       if (JSON.stringify(valueAsBlocked) !== JSON.stringify(items.blocked)) {
         elements.blockedList.value = items.blocked.join("\r\n");
       }
-    }
-
-    if (items.enabled !== undefined) {
-      elements.enabled.value = booleanToString(items.enabled);
     }
 
     if (items.resolution !== undefined) {
@@ -78,7 +88,14 @@ const UI = (() => {
 })();
 
 window.addEventListener("DOMContentLoaded", () => {
-  const keys: (keyof Schema)[] = ["blocked", "enabled", "resolution", "counterShow", "counterPeriod"];
+  const keys: (keyof Schema)[] = [
+    "enabled",
+    "contextMenu",
+    "blocked",
+    "resolution",
+    "counterShow",
+    "counterPeriod",
+  ];
 
   storage.get(keys).then((local) => {
     UI.init(local);

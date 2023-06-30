@@ -10,6 +10,7 @@ test("getRevisitedSchema() returns defaults for any invalid attribute", () => {
     enabled: DEFAULTS.enabled,
     blocked: DEFAULTS.blocked,
   })).toEqual({
+    contextMenu: false,
     counter: DEFAULTS.counter,
     counterShow: DEFAULTS.counterShow,
     counterPeriod: DEFAULTS.counterPeriod,
@@ -19,8 +20,10 @@ test("getRevisitedSchema() returns defaults for any invalid attribute", () => {
   expect(getRevisitedSchema({
     ...DEFAULTS,
     enabled: "YES", // invalid
+    contextMenu: "YES" // invalid
   })).toEqual({
     enabled: DEFAULTS.enabled,
+    contextMenu: DEFAULTS.contextMenu,
   } as Partial<Schema>);
 
   expect(getRevisitedSchema({

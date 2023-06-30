@@ -1,22 +1,32 @@
 import initStorage from "./storage/init";
 import storage from "./storage";
-import createContextMenu from "./helpers/create-context-menu";
+import recreateContextMenu from "./helpers/recreate-context-menu";
 import blockSite from "./helpers/block-site";
 
 let __enabled: boolean;
+let __contextMenu: boolean;
 let __blocked: string[];
 
 initStorage().then(() => {
-  createContextMenu();
-
-  storage.get(["enabled", "blocked"]).then(({ enabled, blocked }) => {
+  storage.get(["enabled", "contextMenu", "blocked"]).then(({ enabled, contextMenu, blocked }) => {
     __enabled = enabled;
+    __contextMenu = contextMenu;
     __blocked = blocked;
+
+    recreateContextMenu(__enabled && __contextMenu);
   });
 
   chrome.storage.local.onChanged.addListener((changes) => {
     if (changes["enabled"]) {
       __enabled = changes["enabled"].newValue as boolean;
+    }
+
+    if (changes["contextMenu"]) {
+      __contextMenu = changes["contextMenu"].newValue as boolean;
+    }
+
+    if (changes["enabled"] || changes["contextMenu"]) {
+      recreateContextMenu(__enabled && __contextMenu);
     }
 
     if (changes["blocked"]) {
