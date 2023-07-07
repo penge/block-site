@@ -27,5 +27,10 @@
     "scripts": ["background.mjs"],
     "type": "module"
   },
-  "incognito": "spanning"
+  "incognito": "spanning",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{5D2A6F66-7AC0-6750-AFBA-1DA7C98A3086}"
+    }
+  }
 }
