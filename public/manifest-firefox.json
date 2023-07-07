@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Block Site",
   "description": "Blocks access to distracting websites to improve your productivity.",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "icons": {
     "32": "icon_32.png",
     "128": "icon_128.png"
