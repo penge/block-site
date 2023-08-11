@@ -7,6 +7,7 @@ const UI = (() => {
     enabled: document.getElementById("enabled") as HTMLSelectElement,
     contextMenu: document.getElementById("context-menu") as HTMLSelectElement,
     blockedList: document.getElementById("blocked-list") as HTMLTextAreaElement,
+    redirect: document.getElementById("redirect") as HTMLTextAreaElement,
     resolution: document.getElementById("resolution") as HTMLSelectElement,
     counterShow: document.getElementById("counter-show") as HTMLSelectElement,
     counterPeriod: document.getElementById("counter-period") as HTMLSelectElement,
@@ -33,6 +34,11 @@ const UI = (() => {
   elements.blockedList.addEventListener("input", (event) => {
     const blocked = stringToBlocked(getEventTargetValue(event));
     storage.set({ blocked });
+  });
+
+  elements.redirect.addEventListener("input", (event) => {
+    const redirect = getEventTargetValue(event);
+    storage.set({ redirect });
   });
 
   elements.resolution.addEventListener("change", (event) => {
@@ -66,6 +72,10 @@ const UI = (() => {
       }
     }
 
+    if (items.redirect !== undefined) {
+      elements.redirect.value = items.redirect;
+    }
+
     if (items.resolution !== undefined) {
       elements.resolution.value = items.resolution;
       RESOLUTIONS.forEach((oneResolution) => {
@@ -95,6 +105,7 @@ window.addEventListener("DOMContentLoaded", () => {
     "resolution",
     "counterShow",
     "counterPeriod",
+    "redirect",
   ];
 
   storage.get(keys).then((local) => {

@@ -1,4 +1,4 @@
-import { VALIDATORS, CounterPeriod } from "./storage";
+import storage, { VALIDATORS, CounterPeriod, Schema} from "./storage";
 import getBlockedMessage from "./helpers/get-blocked-message";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -26,6 +26,19 @@ window.addEventListener("DOMContentLoaded", () => {
     countParams,
   });
 
+
+
   (document.getElementById("message") as HTMLParagraphElement).innerHTML = message;
   document.body.classList.add("ready");
+
+  const keys: (keyof Schema)[] = [
+    "redirect",
+  ];
+  storage.get(keys).then((local) => {
+    if (typeof local.redirect == "string" && local.redirect != "") {
+      setTimeout( () => {
+        window.location.href = local.redirect
+      }, 2000 );
+    }
+  });
 });

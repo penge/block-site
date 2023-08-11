@@ -15,6 +15,7 @@ test("getRevisitedSchema() returns defaults for any invalid attribute", () => {
     counterShow: DEFAULTS.counterShow,
     counterPeriod: DEFAULTS.counterPeriod,
     resolution: DEFAULTS.resolution,
+    redirect: "",
   } as Partial<Schema>);
 
   expect(getRevisitedSchema({

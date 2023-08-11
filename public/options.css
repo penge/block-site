@@ -11,7 +11,7 @@ body:not(.counter-show) #counter-period-option {
   display: none;
 }
 
-textarea {
+textarea, input {
   background-color: var(--area-background-color);
   color: var(--text-color);
 }
@@ -52,6 +52,19 @@ textarea {
 .option > div {
   display: flex;
   flex-direction: column;
+}
+
+#redirect {
+  border: 3px solid var(--area-border-color);
+  outline: none;
+  resize: none;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 700px;
+  padding: .5em .75em;
 }
 
 label {
