@@ -13,4 +13,7 @@ test("findRule()", () => {
     path: "youtube.com",
     type: "block",
   });
+
+  expect(findRule("https://www.nginx.com/", ["x.com"])).toBe(undefined);
+  expect(findRule("https://x.com/", ["nginx.com"])).toBe(undefined);
 });
