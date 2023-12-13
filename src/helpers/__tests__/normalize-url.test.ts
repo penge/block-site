@@ -1,11 +1,42 @@
-import normalizeUrl from "../normalize-url";
+import normalizeUrl, { appendTrailingSlashIfMissing } from "../normalize-url";
 
-test("normalizeUrl()", () => {
-  expect(normalizeUrl("https://www.youtube.com/")).toBe("youtube.com");
+describe("normalizeUrl()", () => {
+  it("removes https, http, www", () => {
+    [
+      "https://example.com/",
+      "http://example.com/",
 
-  expect(normalizeUrl("https://www.youtube.com/feed/explore")).toBe("youtube.com/feed/explore");
+      "https://www.example.com/",
+      "http://www.example.com/",
+    ].forEach((url) => expect(normalizeUrl(url)).toBe("example.com/"));
 
-  expect(normalizeUrl("https://music.youtube.com/")).toBe("music.youtube.com");
+    [
+      "https://dashboard.example.com/",
+      "http://dashboard.example.com/",
 
-  expect(normalizeUrl("https://music.youtube.com/explore")).toBe("music.youtube.com/explore");
+      "https://www.dashboard.example.com/",
+      "http://www.dashboard.example.com/",
+    ].forEach((url) => expect(normalizeUrl(url)).toBe("dashboard.example.com/"));
+  });
+
+  it("keeps path unchanged", () => {
+    expect(normalizeUrl("https://example.com/apple/projects/1?tab=analytics#charts")).toBe(
+      "example.com/apple/projects/1?tab=analytics#charts",
+    );
+
+    expect(normalizeUrl("https://example.com/apple/projects/1")).toBe(
+      "example.com/apple/projects/1",
+    );
+
+    expect(normalizeUrl("https://example.com/apple/projects/")).toBe(
+      "example.com/apple/projects/",
+    );
+  });
+});
+
+describe("appendTrailingSlashIfMissing()", () => {
+  it("appends trailing slash if missing", () => {
+    expect(appendTrailingSlashIfMissing("example.com")).toBe("example.com/");
+    expect(appendTrailingSlashIfMissing("example.com/")).toBe("example.com/");
+  });
 });

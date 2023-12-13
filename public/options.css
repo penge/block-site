@@ -1,6 +1,7 @@
 :root {
-  --area-border-color: black;
-  --area-background-color: white;
+  --border-color: black;
+  --border-radius: 3px;
+  --input-background-color: white;
 }
 
 body:not(.resolution-SHOW_BLOCKED_INFO_PAGE) #blocked-info-page-details {
@@ -11,13 +12,26 @@ body:not(.counter-show) #counter-period-option {
   display: none;
 }
 
-textarea {
-  background-color: var(--area-background-color);
-  color: var(--text-color);
+#blocked-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0 2em 0;
+}
+
+#blocked-container > div {
+  align-self: flex-start;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  background: var(--border-color);
+  color: var(--input-background-color);
+  font-weight: bold;
+  padding: .25em .5em;
 }
 
 #blocked-list {
-  border: 3px solid var(--area-border-color);
+  border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
+  border: 3px solid var(--border-color);
+  background-color: var(--input-background-color);
+  color: var(--text-color);
   outline: none;
   resize: none;
   font-size: inherit;
@@ -25,9 +39,10 @@ textarea {
   white-space: pre;
   box-sizing: border-box;
   width: 100%;
-  max-width: 700px;
-  height: 350px;
+  max-width: 1100px;
+  height: 400px;
   padding: .5em .75em;
+  margin: 0;
 }
 
 #blocked-list::placeholder {
@@ -60,20 +75,27 @@ label {
 }
 
 select, fieldset {
-  border: 1px solid var(--area-border-color);
+  border: 1px solid var(--border-color);
   color: var(--text-color);
 }
 
 select {
-  background-color: var(--area-background-color);
+  border-radius: var(--border-radius);
+  background-color: var(--input-background-color);
   font-size: inherit;
   padding: 3px;
+}
+
+select#resolution {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 fieldset {
   display: inline-block;
   margin: 0;
   border-top: none;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
   padding: 6px;
 }
 
@@ -87,8 +109,12 @@ fieldset {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --area-border-color: #222;
-    --area-background-color: #222;
+    --border-color: #222;
+    --input-background-color: #222;
+  }
+
+  #blocked-container > div {
+    color: var(--text-color);
   }
 
   #star {
