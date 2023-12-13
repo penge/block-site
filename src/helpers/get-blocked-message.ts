@@ -2,10 +2,10 @@ import { CounterPeriod } from "../storage";
 import { GetBlockedUrlParams } from "./get-blocked-url";
 
 const periodStrings: Record<CounterPeriod, string> = {
-  "ALL_TIME": "overall",
-  "THIS_MONTH": "this month",
-  "THIS_WEEK": "this week",
-  "TODAY": "today",
+  ALL_TIME: "overall",
+  THIS_MONTH: "this month",
+  THIS_WEEK: "this week",
+  TODAY: "today",
 };
 
 export default ({ url, rule, countParams: cp }: GetBlockedUrlParams): string => cp

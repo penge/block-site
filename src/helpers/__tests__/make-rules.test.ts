@@ -5,11 +5,11 @@ test("makeRules()", () => {
     makeRules([
       "youtube.com",
       "!music.youtube.com",
-    ])
+    ]),
   ).toEqual<Rule[]>([
     {
       path: "music.youtube.com",
-      type: "allow"
+      type: "allow",
     },
     {
       path: "youtube.com",
