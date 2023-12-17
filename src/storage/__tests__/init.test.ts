@@ -19,8 +19,8 @@ test("getRevisitedSchema() returns defaults for any invalid attribute", () => {
 
   expect(getRevisitedSchema({
     ...DEFAULTS,
-    enabled: "YES", // invalid
-    contextMenu: "YES" // invalid
+    enabled: "YES",     // invalid
+    contextMenu: "YES", // invalid
   })).toEqual({
     enabled: DEFAULTS.enabled,
     contextMenu: DEFAULTS.contextMenu,

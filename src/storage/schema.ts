@@ -44,10 +44,14 @@ export const VALIDATORS: Readonly<Record<keyof Schema, (value: unknown) => boole
 };
 
 export const BLOCKED_EXAMPLE: string[] = [
-  "facebook.com",
-  "instagram.com",
-  "youtube.com",
-  "!music.youtube.com",
-  "reddit.com",
-  "!reddit.com/r/MachineLearning",
+  "example.com          # main page only",
+  "example.com/*        # any page",
+  "",
+
+  "!one.example.com     # ! = exclude",
+  "*.example.com        # * = any zero or more characters",
+  "",
+
+  "example.com/???/     # ? = any one character",
+  "example.com/app/*",
 ];

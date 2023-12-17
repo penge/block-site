@@ -36,5 +36,5 @@ export default defineConfig({
     ));
 
     Promise.all(copyFilesPromises).then(() => resolve()).catch(reject);
-  })
+  }),
 });

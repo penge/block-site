@@ -3,17 +3,17 @@ import makeRules, { Rule } from "../make-rules";
 test("makeRules()", () => {
   expect(
     makeRules([
-      "youtube.com",
+      "*.youtube.com",
       "!music.youtube.com",
-    ])
+
+      "reddit.com",
+      "!reddit.com/r/MachineLearning",
+    ]),
   ).toEqual<Rule[]>([
-    {
-      path: "music.youtube.com",
-      type: "allow"
-    },
-    {
-      path: "youtube.com",
-      type: "block",
-    },
+    { type: "allow", path: "music.youtube.com" },
+    { type: "allow", path: "reddit.com/r/MachineLearning" },
+
+    { type: "block", path: "*.youtube.com" },
+    { type: "block", path: "reddit.com" },
   ]);
 });

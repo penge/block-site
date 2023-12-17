@@ -38,7 +38,7 @@ describe("add()", () => {
 
     it("returns updated count", () => {
       expect(
-        c.add("youtube.com", 5000, { counter, countFromTimeStamp: 0 })
+        c.add("youtube.com", 5000, { counter, countFromTimeStamp: 0 }),
       ).toBe(1);
     });
 
@@ -55,11 +55,11 @@ describe("add()", () => {
 
     it("returns updated count", () => {
       expect(
-        c.add("youtube.com", 8000, { counter, countFromTimeStamp: 0 })
+        c.add("youtube.com", 8000, { counter, countFromTimeStamp: 0 }),
       ).toBe(4);
 
       expect(
-        c.add("something.com", 9000, { counter, countFromTimeStamp: 0 })
+        c.add("something.com", 9000, { counter, countFromTimeStamp: 0 }),
       ).toBe(2);
     });
 
@@ -78,11 +78,11 @@ describe("add()", () => {
       };
 
       expect(
-        c.add("youtube.com", 20000, { counter, countFromTimeStamp: 0 })
+        c.add("youtube.com", 20000, { counter, countFromTimeStamp: 0 }),
       ).toBe(8);
 
       expect(
-        c.add("youtube.com", 21000, { counter, countFromTimeStamp: 10000 })
+        c.add("youtube.com", 21000, { counter, countFromTimeStamp: 10000 }),
       ).toBe(4);
     });
   });
