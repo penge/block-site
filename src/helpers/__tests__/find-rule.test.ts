@@ -2,17 +2,24 @@ import findRule from "../find-rule";
 import { Rule } from "../make-rules";
 
 describe("findRule()", () => {
-  describe("insufficient arguments", () => {
-    it("returns undefined for empty URL and/or empty blocked", () => {
+  describe("empty URL and/or empty blocked", () => {
+    it("returns undefined", () => {
       expect(findRule("", [])).toBeUndefined();
-      expect(findRule("", ["example.com"])).toBeUndefined();
+      expect(findRule("", ["example.com/"])).toBeUndefined();
       expect(findRule("https://example.com/", [])).toBeUndefined();
     });
+  });
 
-    it("returns undefined if domains do not match", () => {
+  describe("no matching domains", () => {
+    it("returns undefined", () => {
       expect(findRule("https://example.com/", ["something.com"])).toBeUndefined();
+      expect(findRule("https://example.com/", ["something.com/"])).toBeUndefined();
+
       expect(findRule("https://www.nginx.com/", ["x.com"])).toBeUndefined();
+      expect(findRule("https://www.nginx.com/", ["x.com/"])).toBeUndefined();
+
       expect(findRule("https://x.com/", ["nginx.com"])).toBeUndefined();
+      expect(findRule("https://x.com/", ["nginx.com/"])).toBeUndefined();
     });
   });
 
@@ -24,30 +31,32 @@ describe("findRule()", () => {
 
         "https://www.example.com/",
         "http://www.example.com/",
-      ].forEach((url) => expect(findRule(url, ["example.com"])).toEqual<Rule>({
+      ].forEach((url) => expect(findRule(url, ["example.com/"])).toEqual<Rule>({
         type: "block",
-        path: "example.com",
+        path: "example.com/",
       }));
     });
   });
 
   describe("domains", () => {
     it("can block main domain only", () => {
-      expect(findRule("https://example.com/", ["example.com"])).toEqual<Rule>({
+      expect(findRule("https://example.com/", ["example.com"])).toBeUndefined();
+      expect(findRule("https://example.com/", ["example.com/"])).toEqual<Rule>({
         type: "block",
-        path: "example.com",
+        path: "example.com/",
       });
 
-      expect(findRule("https://dashboard.example.com/", ["example.com"])).toBeUndefined();
+      expect(findRule("https://dashboard.example.com/", ["example.com/"])).toBeUndefined();
     });
 
     it("can block subdomain only", () => {
-      expect(findRule("https://dashboard.example.com/", ["dashboard.example.com"])).toEqual<Rule>({
+      expect(findRule("https://dashboard.example.com/", ["dashboard.example.com"])).toBeUndefined();
+      expect(findRule("https://dashboard.example.com/", ["dashboard.example.com/"])).toEqual<Rule>({
         type: "block",
-        path: "dashboard.example.com",
+        path: "dashboard.example.com/",
       });
 
-      expect(findRule("https://example.com/", ["dashboard.example.com"])).toBeUndefined();
+      expect(findRule("https://example.com/", ["dashboard.example.com/"])).toBeUndefined();
     });
 
     describe("* in domains", () => {
@@ -55,18 +64,18 @@ describe("findRule()", () => {
         [
           "https://apple.example.com/",
           "https://banana.example.com/",
-        ].forEach((url) => expect(findRule(url, ["*.example.com"])).toEqual<Rule>({
+        ].forEach((url) => expect(findRule(url, ["*.example.com/"])).toEqual<Rule>({
           type: "block",
-          path: "*.example.com",
+          path: "*.example.com/",
         }));
 
-        expect(findRule("https://example.com/", ["*.example.com"])).toBeUndefined();
+        expect(findRule("https://example.com/", ["*.example.com/"])).toBeUndefined();
       });
     });
 
     describe("? in domains", () => {
       it("can block any subdomain of same length defined by ?", () => {
-        const blocked = ["?????.example.com"];
+        const blocked = ["?????.example.com/"];
 
         [
           "https://mango.example.com/",
@@ -85,15 +94,11 @@ describe("findRule()", () => {
   });
 
   describe("paths", () => {
-    it("can block root path even if / is missing", () => {
+    it("requires trailing /", () => {
+      expect(findRule("https://example.com/", ["example.com"])).toBeUndefined();
       expect(findRule("https://example.com/", ["example.com/"])).toEqual<Rule>({
         type: "block",
         path: "example.com/",
-      });
-
-      expect(findRule("https://example.com/", ["example.com"])).toEqual<Rule>({
-        type: "block",
-        path: "example.com",
       });
     });
 
@@ -103,7 +108,6 @@ describe("findRule()", () => {
         "https://example.com/apple/dashboard?tab=analytics#charts",
       ];
 
-      urls.forEach((url) => expect(findRule(url, ["example.com"])).toBeUndefined());
       urls.forEach((url) => expect(findRule(url, ["example.com/"])).toBeUndefined());
     });
 
@@ -141,6 +145,23 @@ describe("findRule()", () => {
         ].forEach((url) => expect(findRule(url, ["example.com/*rry/"])).toEqual<Rule>({
           type: "block",
           path: "example.com/*rry/",
+        }));
+      });
+
+      it("can block any path containing a word", () => {
+        expect(findRule("https://www.youtube.com/watch?v=123456", ["*watch*"])).toEqual<Rule>({
+          type: "block",
+          path: "*watch*",
+        });
+
+        [
+          "https://www.croxyproxy.com/",
+          "https://proxyium.com/",
+          "https://us5.proxysite.one/index.php",
+          "https://ru.proxy-tools.com/proxy",
+        ].forEach((url) => expect(findRule(url, ["*proxy*"])).toEqual<Rule>({
+          type: "block",
+          path: "*proxy*",
         }));
       });
     });
@@ -183,33 +204,36 @@ describe("findRule()", () => {
   describe("excluded from blocking", () => {
     it("can exclude domain from blocking by prepending !", () => {
       const blockedExcludedDomain = [
-        "*.example.com",
-        "!apple.example.com",
+        "*.example.com/",
+        "!apple.example.com/",
       ];
-
-      expect(findRule("https://apple.example.com/", blockedExcludedDomain)).toEqual<Rule>({
-        type: "allow",
-        path: "apple.example.com",
-      });
 
       expect(findRule("https://banana.example.com/", blockedExcludedDomain)).toEqual<Rule>({
         type: "block",
-        path: "*.example.com",
+        path: "*.example.com/",
+      });
+
+      expect(findRule("https://apple.example.com/", blockedExcludedDomain)).toEqual<Rule>({
+        type: "allow",
+        path: "apple.example.com/",
       });
     });
 
     it("can exclude path from blocking by prepending !", () => {
       const blockedExcludedPath = [
-        "example.com",
+        "example.com/*",
         "!example.com/strawberry/",
       ];
+
+      expect(findRule("https://example.com/apple/", blockedExcludedPath)).toEqual<Rule>({
+        type: "block",
+        path: "example.com/*",
+      });
 
       expect(findRule("https://example.com/strawberry/", blockedExcludedPath)).toEqual<Rule>({
         type: "allow",
         path: "example.com/strawberry/",
       });
-
-      expect(findRule("https://example.com/orange/", blockedExcludedPath)).toBeUndefined();
     });
   });
 });

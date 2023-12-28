@@ -1,4 +1,4 @@
-import normalizeUrl, { appendTrailingSlashIfMissing } from "../normalize-url";
+import normalizeUrl from "../normalize-url";
 
 describe("normalizeUrl()", () => {
   it("removes https, http, www", () => {
@@ -31,12 +31,5 @@ describe("normalizeUrl()", () => {
     expect(normalizeUrl("https://example.com/apple/projects/")).toBe(
       "example.com/apple/projects/",
     );
-  });
-});
-
-describe("appendTrailingSlashIfMissing()", () => {
-  it("appends trailing slash if missing", () => {
-    expect(appendTrailingSlashIfMissing("example.com")).toBe("example.com/");
-    expect(appendTrailingSlashIfMissing("example.com/")).toBe("example.com/");
   });
 });

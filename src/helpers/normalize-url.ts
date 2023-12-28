@@ -5,5 +5,3 @@ export default (url: string): string => [url]
   .map(__removeProtocol)
   .map(__removeWww)
   .pop() as string;
-
-export const appendTrailingSlashIfMissing = (url: string) => url.split("/").length === 1 ? `${url}/` : url;
