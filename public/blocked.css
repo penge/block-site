@@ -1,4 +1,27 @@
 #url, #rule {
   font-family: monospace;
-  opacity: .4;
+  padding: var(--border-radius);
+  border-radius: var(--border-radius);
+}
+
+#url {
+  background: #c6c6c6;
+  color: white;
+}
+
+#rule {
+  background: #ff0100;
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  #url {
+    background: #606060;
+    color: #121212;
+  }
+
+  #rule {
+    filter: saturate(50%);
+    color: #e8e8e8;
+  }
 }
