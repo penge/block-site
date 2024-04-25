@@ -9,24 +9,33 @@ const createContextMenu = () => {
     documentUrlPatterns: ["https://*/*", "http://*/*"],
   });
 
-  const blockThisSiteId = "block_this_site";
+  const blockOneId = "block_one";
   chrome.contextMenus.create({
     parentId,
-    id: blockThisSiteId,
-    title: "Block this site",
+    id: blockOneId,
+    title: "Block this page only",
+  });
+
+  const blockAllId = "block_all";
+  chrome.contextMenus.create({
+    parentId,
+    id: blockAllId,
+    title: "Block entire website",
   });
 
   chrome.contextMenus.onClicked.addListener((info, tab) => {
     const tabId = tab?.id;
-    if (!tabId || info.menuItemId !== blockThisSiteId) {
+    if (!tabId || ![blockOneId, blockAllId].includes(String(info.menuItemId))) {
       return;
     }
 
-    storage.get(["blocked"]).then(({ blocked }) => {
-      const url = info.pageUrl;
-      const normalizedUrl = removeProtocol(url);
-      const updatedBlocked = [...blocked, normalizedUrl];
+    const url = info.pageUrl;
+    const blockedUrl = info.menuItemId === blockOneId
+      ? removeProtocol(url)
+      : new URL(url).host;
 
+    storage.get(["blocked"]).then(({ blocked }) => {
+      const updatedBlocked = [...blocked, blockedUrl];
       storage.set({ blocked: updatedBlocked });
       blockSite({ blocked: updatedBlocked, tabId, url });
     });

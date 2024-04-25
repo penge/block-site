@@ -57,6 +57,13 @@ example.com/*rry/*       # Blocks e.g.:
                          # - example.com/strawberry/projects/1
 ```
 
+## Context menu
+
+Right-click on any website, see context menu Block Site, with options:
+
+- Block this page only
+- Block entire website
+
 ## Privacy notice
 
 Block Site doesn't collect any personal information or data.
