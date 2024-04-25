@@ -29,6 +29,9 @@ _All Time_, _This Month_, _This Week_, or _Today_.
 ### Examples
 
 ```
+example.com              # Blocks example.com/ and any page on it
+
+
 example.com/             # Blocks example.com/ ONLY
 example.com/*            # Blocks example.com/ and any page on it
 

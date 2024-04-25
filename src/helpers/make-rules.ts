@@ -1,4 +1,4 @@
-import normalizeUrl from "./normalize-url";
+import removeProtocol from "./remove-protocol";
 
 type RuleType = "allow" | "block"
 
@@ -10,11 +10,11 @@ export interface Rule {
 export default (blocked: string[]): Rule[] => {
   const allowList = blocked
     .filter((item) => item.startsWith("!"))
-    .map((item) => normalizeUrl(item.substring(1)));
+    .map((item) => removeProtocol(item.substring(1)));
 
   const blockList = blocked
     .filter((item) => !item.startsWith("!"))
-    .map(normalizeUrl);
+    .map(removeProtocol);
 
   return [
     ...allowList.map((path) => ({ type: "allow", path } as Rule)),

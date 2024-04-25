@@ -1,6 +1,6 @@
 import storage from "../storage";
 import blockSite from "./block-site";
-import normalizeUrl from "./normalize-url";
+import removeProtocol from "./remove-protocol";
 
 const createContextMenu = () => {
   const parentId = chrome.contextMenus.create({
@@ -24,7 +24,7 @@ const createContextMenu = () => {
 
     storage.get(["blocked"]).then(({ blocked }) => {
       const url = info.pageUrl;
-      const normalizedUrl = normalizeUrl(url);
+      const normalizedUrl = removeProtocol(url);
       const updatedBlocked = [...blocked, normalizedUrl];
 
       storage.set({ blocked: updatedBlocked });
