@@ -29,6 +29,9 @@ _All Time_, _This Month_, _This Week_, or _Today_.
 ### Examples
 
 ```
+example.com              # Blocks example.com/ and any page on it
+
+
 example.com/             # Blocks example.com/ ONLY
 example.com/*            # Blocks example.com/ and any page on it
 
@@ -53,6 +56,13 @@ example.com/*rry/*       # Blocks e.g.:
                          # - example.com/cherry/projects/1
                          # - example.com/strawberry/projects/1
 ```
+
+## Context menu
+
+Right-click on any website, see context menu Block Site, with options:
+
+- Block this page only
+- Block entire website
 
 ## Privacy notice
 

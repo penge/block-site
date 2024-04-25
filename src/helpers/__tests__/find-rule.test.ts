@@ -40,7 +40,6 @@ describe("findRule()", () => {
 
   describe("domains", () => {
     it("can block main domain only", () => {
-      expect(findRule("https://example.com/", ["example.com"])).toBeUndefined();
       expect(findRule("https://example.com/", ["example.com/"])).toEqual<Rule>({
         type: "block",
         path: "example.com/",
@@ -50,7 +49,6 @@ describe("findRule()", () => {
     });
 
     it("can block subdomain only", () => {
-      expect(findRule("https://dashboard.example.com/", ["dashboard.example.com"])).toBeUndefined();
       expect(findRule("https://dashboard.example.com/", ["dashboard.example.com/"])).toEqual<Rule>({
         type: "block",
         path: "dashboard.example.com/",
@@ -70,6 +68,20 @@ describe("findRule()", () => {
         }));
 
         expect(findRule("https://example.com/", ["*.example.com/"])).toBeUndefined();
+      });
+
+      it("can block www subdomain with *", () => {
+        const blocked = ["*.facebook.com/*", "www.facebook.com/*"];
+        blocked.forEach((blocked) => {
+          expect(findRule("https://www.facebook.com/", [blocked])).toEqual<Rule>({
+            type: "block",
+            path: blocked,
+          });
+        });
+
+        blocked.forEach((blocked) => {
+          expect(findRule("https://facebook.com/", [blocked])).toBeUndefined();
+        });
       });
     });
 
@@ -94,21 +106,45 @@ describe("findRule()", () => {
   });
 
   describe("paths", () => {
-    it("requires trailing /", () => {
-      expect(findRule("https://example.com/", ["example.com"])).toBeUndefined();
-      expect(findRule("https://example.com/", ["example.com/"])).toEqual<Rule>({
-        type: "block",
-        path: "example.com/",
+    it("expands with www. if path does not start with www. or *.", () => {
+      const blocked = ["facebook.com/*", "*.facebook.com/*", "www.facebook.com/*"];
+      blocked.forEach((blocked) => {
+        expect(findRule("https://www.facebook.com/", [blocked])).toEqual<Rule>({
+          type: "block",
+          path: blocked,
+        });
       });
     });
 
+    it("expands with /* if there is no /", () => {
+      [
+        "https://example.com/",
+        "https://example.com/pear/projects/1",
+      ].forEach((url) => {
+        expect(findRule(url, ["example.com"])).toEqual<Rule>({
+          type: "block",
+          path: "example.com",
+        });
+      });
+
+      [
+        "https://dashboard.example.com/",
+        "https://dashboard.example.com/apples/",
+      ].forEach((url) => {
+        expect(findRule(url, ["dashboard.example.com"])).toEqual<Rule>({
+          type: "block",
+          path: "dashboard.example.com",
+        });
+      });
+
+      expect(findRule("https://example.com/projects/1", ["example.com/projects"])).toBeUndefined();
+    });
+
     it("does not block any subpath automatically (without *)", () => {
-      const urls = [
+      [
         "https://example.com/apple/",
         "https://example.com/apple/dashboard?tab=analytics#charts",
-      ];
-
-      urls.forEach((url) => expect(findRule(url, ["example.com/"])).toBeUndefined());
+      ].forEach((url) => expect(findRule(url, ["example.com/"])).toBeUndefined());
     });
 
     describe("* in paths", () => {

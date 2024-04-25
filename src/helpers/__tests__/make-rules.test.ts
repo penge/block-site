@@ -3,6 +3,9 @@ import makeRules, { Rule } from "../make-rules";
 test("makeRules()", () => {
   expect(
     makeRules([
+      "www.facebook.com",
+      "https://www.instagram.com/",
+
       "*.youtube.com",
       "!music.youtube.com",
 
@@ -12,6 +15,9 @@ test("makeRules()", () => {
   ).toEqual<Rule[]>([
     { type: "allow", path: "music.youtube.com" },
     { type: "allow", path: "reddit.com/r/MachineLearning" },
+
+    { type: "block", path: "www.facebook.com" },
+    { type: "block", path: "www.instagram.com/" },
 
     { type: "block", path: "*.youtube.com" },
     { type: "block", path: "reddit.com" },
