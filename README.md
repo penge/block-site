@@ -57,10 +57,9 @@ example.com/*rry/*       # Blocks e.g.:
                          # - example.com/strawberry/projects/1
 ```
 
-## Context menu
+### Context menu
 
-Right-click on any website, see context menu Block Site, with options:
-
+If enabled, Block Site will be added to your browser's context menu. It will offer options to:
 - Block this page only
 - Block entire website
 
