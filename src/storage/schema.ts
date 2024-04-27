@@ -44,7 +44,8 @@ export const VALIDATORS: Readonly<Record<keyof Schema, (value: unknown) => boole
 };
 
 export const BLOCKED_EXAMPLE: string[] = [
-  "example.com          # main page only",
+  "example.com          # any page (same as example.com/*)",
+  "example.com/         # main page only",
   "example.com/*        # any page",
   "",
 
