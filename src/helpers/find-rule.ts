@@ -32,7 +32,7 @@ export default (url: string, blocked: string[]): Rule | undefined => {
       ));
 
     const found = patterns.some((pattern) => {
-      const matches = normalizedUrl.match(new RegExp(pattern));
+      const matches = normalizedUrl.match(new RegExp(pattern, "i"));
       return matches;
     });
 
