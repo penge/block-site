@@ -2,6 +2,11 @@
 
 **Block Site** is a simple **Chrome/Firefox extension** that improves your productivity by blocking access to distracting websites as you specify.
 
+## Install
+
+- https://addons.mozilla.org/firefox/addon/penge-block-site
+- https://chromewebstore.google.com/detail/bjcnpgekponkjpincbcoflgkdomldlnl
+
 ## Icon
 
 <img src="public/icon_128.png" width="48">
