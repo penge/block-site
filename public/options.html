@@ -46,6 +46,7 @@
         <select id="resolution">
           <option value="CLOSE_TAB">Close Tab</option>
           <option value="SHOW_BLOCKED_INFO_PAGE">Show Blocked info page</option>
+          <option value="REDIRECT">Redirect to URL</option>
         </select>
 
         <fieldset id="blocked-info-page-details">
@@ -65,6 +66,13 @@
               <option value="THIS_WEEK">This Week</option>
               <option value="TODAY">Today</option>
             </select>
+          </div>
+        </fieldset>
+
+        <fieldset id="redirect-url-option">
+          <div class="option">
+            <label>Redirect URL:</label>
+            <input id="redirect-url" type="url" placeholder="https://example.com" />
           </div>
         </fieldset>
       </div>

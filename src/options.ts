@@ -10,6 +10,7 @@ const UI = (() => {
     resolution: document.getElementById("resolution") as HTMLSelectElement,
     counterShow: document.getElementById("counter-show") as HTMLSelectElement,
     counterPeriod: document.getElementById("counter-period") as HTMLSelectElement,
+    redirectUrl: document.getElementById("redirect-url") as HTMLInputElement,
   };
 
   elements.blockedList.placeholder = BLOCKED_EXAMPLE.join("\n");
@@ -50,6 +51,11 @@ const UI = (() => {
     storage.set({ counterPeriod });
   });
 
+  elements.redirectUrl.addEventListener("input", (event) => {
+    const redirectUrl = (event.target as HTMLInputElement).value;
+    storage.set({ redirectUrl });
+  });
+
   const init = <T extends Partial<Schema>>(items: T) => {
     if (items.enabled !== undefined) {
       elements.enabled.value = booleanToString(items.enabled);
@@ -82,6 +88,10 @@ const UI = (() => {
     if (items.counterPeriod !== undefined) {
       elements.counterPeriod.value = items.counterPeriod;
     }
+
+    if (items.redirectUrl !== undefined) {
+      elements.redirectUrl.value = items.redirectUrl;
+    }
   };
 
   return { elements, init };
@@ -95,6 +105,7 @@ window.addEventListener("DOMContentLoaded", () => {
     "resolution",
     "counterShow",
     "counterPeriod",
+    "redirectUrl",
   ];
 
   storage.get(keys).then((local) => {

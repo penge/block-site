@@ -7,6 +7,10 @@ body:not(.resolution-SHOW_BLOCKED_INFO_PAGE) #blocked-info-page-details {
   display: none;
 }
 
+body:not(.resolution-REDIRECT) #redirect-url-option {
+  display: none;
+}
+
 body:not(.counter-show) #counter-period-option {
   display: none;
 }
@@ -73,7 +77,7 @@ label {
   margin-right: .6em;
 }
 
-select, fieldset {
+select, fieldset, input {
   border: 1px solid var(--border-color);
   color: var(--text-color);
 }
@@ -96,6 +100,13 @@ fieldset {
   border-top: none;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   padding: 6px;
+}
+
+input {
+  border-radius: var(--border-radius);
+  background-color: var(--input-background-color);
+  font-size: inherit;
+  padding: 3px;
 }
 
 #credits {
