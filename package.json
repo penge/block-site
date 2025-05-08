@@ -6,10 +6,6 @@
   "license": "MIT",
   "repository": "github:penge/block-site",
   "private": true,
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
-  },
   "scripts": {
     "lint": "eslint src --ext .ts",
     "test": "TZ=UTC jest",
