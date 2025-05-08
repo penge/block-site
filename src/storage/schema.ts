@@ -1,6 +1,7 @@
 export const RESOLUTIONS = [
   "CLOSE_TAB",
   "SHOW_BLOCKED_INFO_PAGE",
+  "REDIRECT",
 ] as const;
 
 export const COUNTER_PERIODS = [
@@ -21,6 +22,7 @@ export interface Schema {
   counterShow: boolean
   counterPeriod: CounterPeriod
   resolution: Resolution
+  redirectUrl?: string;
 }
 
 export const DEFAULTS: Readonly<Schema> = {
@@ -41,6 +43,7 @@ export const VALIDATORS: Readonly<Record<keyof Schema, (value: unknown) => boole
   counterShow: (value) => typeof value === "boolean",
   counterPeriod: (value) => COUNTER_PERIODS.includes(value as CounterPeriod),
   resolution: (value) => RESOLUTIONS.includes(value as Resolution),
+  redirectUrl: (value) => typeof value === "string",
 };
 
 export const BLOCKED_EXAMPLE: string[] = [

@@ -56,6 +56,15 @@ export default (options: BlockSiteOptions) => {
         browser.tabs.update(tabId, { ...commonUpdateProperties, loadReplace: true });
         break;
       }
+      break;
+    }
+    case "REDIRECT": {
+      storage.get(["redirectUrl"]).then(({ redirectUrl }) => {
+        if (redirectUrl) {
+          chrome.tabs.update(tabId, { url: redirectUrl });
+        }
+      });
+      break;
     }}
   });
 };
