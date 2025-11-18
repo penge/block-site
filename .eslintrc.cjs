@@ -25,6 +25,7 @@ const config = {
     "quote-props": ["error", "as-needed"],
     semi: ["error", "always"],
     "no-multi-spaces": ["error", { ignoreEOLComments: true }],
+    "no-trailing-spaces": "error",
     "arrow-parens": ["error", "always"],
     "@stylistic/ts/comma-dangle": ["error", "always-multiline"],
   },
