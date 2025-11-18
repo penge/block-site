@@ -1,6 +1,12 @@
 :root {
   --border-color: black;
   --input-background-color: white;
+  --text-color-muted: red;
+  --button-color: red;
+  --button-color-disabled: gray;
+  --button-border-color: #fcb6b6;
+  --button-border-color-hover: black;
+  --button-color-hover: black;
 }
 
 body:not(.resolution-SHOW_BLOCKED_INFO_PAGE) #blocked-info-page-details {
@@ -66,6 +72,50 @@ body:not(.counter-show) #counter-period-option {
 .option > div {
   display: flex;
   flex-direction: column;
+}
+
+.option > button {
+  margin-left: 8px;
+  border-radius: var(--border-radius) var(--border-radius) var(--border-radius);
+  background: var(--button-color);
+  border-color: var(--button-border-color);
+  color: var(--input-background-color);
+  font-weight: bold;
+  cursor: pointer;
+  padding: .1em 4em;
+  vertical-align: bottom;
+  font-size: inherit;
+}
+
+.option > button:not(:disabled):hover {
+  color: var(--button-color-hover);
+  border-color: var(--button-border-color-hover);
+}
+
+.option > button:disabled {
+  background: var(--button-color-disabled);
+  border-color: var(--button-color-disabled);
+  cursor: not-allowed;
+}
+
+.option > input[type="number"] {
+  margin-left: 8px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--input-background-color);
+  color: var(--text-color);
+  font-size: inherit;
+  padding: 3px;
+  width: 4em;
+}
+
+*:disabled {
+  cursor: not-allowed;
+}
+
+.muted {
+  color: var(--text-color-muted);
+  font-size: inherit;
 }
 
 label {
