@@ -55,4 +55,14 @@ export const BLOCKED_EXAMPLE: string[] = [
 
   "example.com/???/     # ? = any one character",
   "example.com/app/*",
+  "",
+
+  "example.com 9:00-17:00              # block 9am-5pm daily",
+  "facebook.com Mon-Fri 9:00-17:00     # block weekdays only",
+  "youtube.com Sat-Sun                 # block weekends all day",
+  "",
+
+  "reddit.com 9:00-12:00 14:00-17:00              # multiple times (no lunch)",
+  "twitter.com Mon-Fri 9:00-12:00 14:00-17:00     # weekday schedule",
+  "instagram.com Mon-Fri 9:00-17:00 Sat 10:00-14:00  # different days",
 ];

@@ -2,6 +2,7 @@ import storage from "../storage";
 import findRule from "./find-rule";
 import * as counterHelper from "./counter";
 import getBlockedUrl from "./get-blocked-url";
+import { isWithinSchedule } from "./check-schedule";
 
 interface BlockSiteOptions {
   blocked: string[]
@@ -21,6 +22,12 @@ export default (options: BlockSiteOptions) => {
       counterHelper.flushObsoleteEntries({ blocked, counter });
       storage.set({ counter });
     });
+    return;
+  }
+
+  // Check if current time is within the blocking schedules
+  if (!isWithinSchedule(foundRule.schedules)) {
+    // Outside schedule - don't block
     return;
   }
 
